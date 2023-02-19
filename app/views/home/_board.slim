@@ -2,5 +2,8 @@ table#sudoku-board.table-bordered.text-center.ms-4
   - (0..8).to_a.each do |row|
     tr style="#{[3,6].include?(row) ? 'border-bottom: thick solid;': ''}"
     - (0..8).to_a.each do |cell|
-      td.p-4 data-board-target="cell" data-action="click->board#deselectCells click->board#selectCell click->board#highlightAlikeCells" style="#{[2,5,8].include?(cell) ? 'border-right: thick solid;' : ''}"
+      td.p-4{ data-board-target="cell"
+        data-action="click->board#deselectCells click->board#selectCell click->board#highlightAlikeCells"
+        style="#{[2,5,8].include?(cell) ? 'border-right: thick solid;' : ''}"
+      }
         | #{@board[(row*8) + (cell+row)]}
