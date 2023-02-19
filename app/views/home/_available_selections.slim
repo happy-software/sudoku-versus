@@ -1,0 +1,9 @@
+div.mt-4.mb-4.row
+  - (1..9).each do |num|
+    div.col.btn.btn-primary.me-2 data-action="click->board#makeSelection" id="select_#{num}"
+      | #{num}
+
+div.mt-4.mb-4.row
+  - (1..9).each do |num|
+    div.col.btn.btn-secondary.me-2 data-action="click->board#writePotential"
+      | #{num}
