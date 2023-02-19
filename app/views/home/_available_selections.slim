@@ -1,9 +1,18 @@
-div.mt-4.mb-4.row
-  - (1..9).each do |num|
-    div.col.btn.btn-primary.me-2 data-action="click->board#makeSelection" id="select_#{num}"
-      | #{num}
-
-div.mt-4.mb-4.row
-  - (1..9).each do |num|
-    div.col.btn.btn-secondary.me-2 data-action="click->board#writePotential"
-      | #{num}
+#selectionRow.row
+  .col-10
+    div.mt-4.mb-4.row
+      - (1..9).each do |num|
+        div.col.btn.btn-primary.me-2 data-action="click->board#makeSelection" id="select_#{num}"
+          | #{num}
+  .col-2.mt-4.mb-4
+    button.btn.btn-secondary type="button" data-action="click->board#startEditing"
+      i.bi.bi-pencil
+#editRow.row hidden=true
+  .col-10
+    div.mt-4.mb-4.row
+      - (1..9).each do |num|
+        div.col.btn.btn-secondary.me-2 data-action="click->board#writePotential"
+          | #{num}
+  .col-2.mt-4.mb-4
+    button.btn.btn-primary type="button" data-action="click->board#stopEditing"
+      i.bi.bi-pencil

@@ -54,4 +54,18 @@ export default class extends Controller {
     selectedCell.classList.add("selected")
   }
 
+  startEditing() {
+    let editRow = document.getElementById("editRow");
+    let selectionRow = document.getElementById('selectionRow')
+    editRow.hidden = false;
+    selectionRow.hidden = true;
+  }
+
+  stopEditing() {
+    let editRow = document.getElementById("editRow");
+    let selectionRow = document.getElementById('selectionRow')
+    editRow.hidden = true;
+    selectionRow.hidden = false;
+  }
+
 }
