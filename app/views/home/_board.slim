@@ -6,4 +6,5 @@ table#sudoku-board.table-bordered.text-center.ms-4
         data-action="click->board#deselectCells click->board#selectCell click->board#highlightAlikeCells"
         style="#{[2,5,8].include?(cell) ? 'border-right: thick solid;' : ''}"
       }
-        | #{@board[(row*8) + (cell+row)]}
+        span
+          | #{@board[(row*8) + (cell+row)]}

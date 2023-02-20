@@ -46,7 +46,12 @@ export default class extends Controller {
     if (selectedCell === undefined) { return }
 
     // Update it's value with the selection
-    selectedCell.innerText = event.target.innerText
+    console.log(`Clicked number: ${event.target.innerText}`)
+    while (selectedCell.firstChild) {
+      selectedCell.removeChild(selectedCell.lastChild);
+    }
+    const span = selectedCell.appendChild(document.createElement('span'))
+    span.textContent = 'hello world';
 
     this.deselectCells()
     this.highlightAlikeCells(event)

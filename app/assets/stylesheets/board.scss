@@ -2,19 +2,17 @@
   border: thick solid;
 }
 
-// Cell styling
-
 .selected {
-  //background-color: #20c997;
-  //box-shadow: 4px 4px 4px 4px red !important;
-  //color: green;
   box-shadow: 1px 1px 2px black, 0 0 25px green, 0 0 5px darkgreen;
 }
+
 .highlighted {
   background-color: #5cbe5c;
 }
 
-// Selection/Edit sections
+.highlighted span {
+  color: white;
+}
 
 #selectionRow {
 
