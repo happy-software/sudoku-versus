@@ -3,11 +3,16 @@
 }
 
 .selected {
-  box-shadow: 1px 1px 2px black, 0 0 25px green, 0 0 5px darkgreen;
+  box-shadow: 1px 1px 2px black, 0 0 25px #0d6efd, 0 0 5px #082e67;
+  font-weight: bold;
+}
+
+.selected span {
+  color: #0d6efd;
 }
 
 .highlighted {
-  background-color: #5cbe5c;
+  background-color: #0d6efd;
 }
 
 .highlighted span {
