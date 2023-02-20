@@ -11,7 +11,7 @@ export default class extends Controller {
       }
 
       if (e.code === 'Backspace') {
-        let selectedCell = this.cellTargets.find(cell => cell.classList.contains("selected"))
+        let selectedCell = document.getElementsByClassName('selected')[0] // There should only ever be one
         selectedCell.innerText = "";
       }
 
@@ -51,7 +51,7 @@ export default class extends Controller {
       selectedCell.removeChild(selectedCell.lastChild);
     }
     const span = selectedCell.appendChild(document.createElement('span'))
-    span.textContent = 'hello world';
+    span.textContent = event.target.innerText;
 
     this.deselectCells()
     this.highlightAlikeCells(event)
