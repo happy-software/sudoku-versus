@@ -21,4 +21,22 @@ class HomeController < ApplicationController
     #           [[nil, nil, 2], [5, 4, 9], [nil, 7, nil]],
     #           [[nil, 1, 5], [2, 6, nil], [nil, nil, nil]]].flatten
   end
+
+  def new
+  end
+
+  def create_challenge
+    challenge_creator_name = params[:userNameInput]
+    respond_to do |format|
+      format.turbo_stream do
+        render turbo_stream: [
+          turbo_stream.update('new_challenge_container', partial: 'home/waiting_for_challenger', locals: {challenge_creator_name: challenge_creator_name})
+        ]
+      end
+    end
+  end
+
+  def waiting_for_challenger
+    @challenge_creator_name = params[:match_uuid] # TODO: Update this stubbed value
+  end
 end

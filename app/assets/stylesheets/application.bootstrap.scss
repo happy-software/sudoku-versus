@@ -1,3 +1,12 @@
 @import 'bootstrap/scss/bootstrap';
 @import 'bootstrap-icons/font/bootstrap-icons';
 @import 'board';
+
+label {
+  display: block;
+}
+
+#new_challenge_container {
+  margin: auto;
+  align-content: center;
+}
