@@ -26,11 +26,11 @@ class HomeController < ApplicationController
   end
 
   def create_challenge
-    challenge_creator_name = params[:userNameInput]
+    @user_name = (session[:user_name] || params[:userNameInput]).titleize
     respond_to do |format|
       format.turbo_stream do
         render turbo_stream: [
-          turbo_stream.update('new_challenge_container', partial: 'home/waiting_for_challenger', locals: {challenge_creator_name: challenge_creator_name})
+          turbo_stream.update('new_challenge_container', partial: 'home/waiting_for_challenger')
         ]
       end
     end

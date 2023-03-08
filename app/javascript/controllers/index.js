@@ -5,5 +5,7 @@
 import { application } from "./application"
 
 import BoardController from "./board_controller"
+import ClipboardController from "./clipboard_controller"
 
 application.register("board", BoardController)
+application.register("clipboard", ClipboardController)

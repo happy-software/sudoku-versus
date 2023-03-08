@@ -1,19 +1,18 @@
-.row
-  .col-6.align-items-center
-    .card style="width: 18rem;"
-      .card-body
-        h5.card-title Hello, #{challenge_creator_name.titleize}
-        p.card-text We're waiting for your challenger to join.
+.card-group
+  .card
+    .card-body.text-center
+      h5.card-title Hello, #{@user_name}
+      p.card-text We're waiting for your challenger to join.
 
-  .col-6.align-items-center
-    .card style="width: 18rem;"
-      .card-body
-        h5.card-title Waiting for Opponent
-        p.card-text Send this link to your opponent
-        #waitingToJoinSpinners.d-flex.justify-content-center
-          .spinner-grow.text-primary role="status"
-            span.visually-hidden Waiting for opponent to join...
-          .spinner-grow.text-primary.ms-4 role="status"
-            span.visually-hidden Waiting for opponent to join...
-          .spinner-grow.text-primary.ms-4 role="status"
-            span.visually-hidden Waiting for opponent to join...
+  .card
+    .card-body.text-center
+      h5.card-title Waiting for Opponent
+      p.card-text Send this link to your opponent
+      #waitingToJoinSpinners.d-flex.justify-content-center
+        .spinner-grow.text-primary role="status"
+        .spinner-grow.text-primary.ms-4 role="status"
+        .spinner-grow.text-primary.ms-4 role="status"
+      div.mt-3 data-controller="clipboard"
+        label for="challenge_url" Challenge URL:
+        input.form-control id="challenge_url" type="text" value="#{}" readonly=true data-clipboard-target="source"
+        button.btn.btn-outline-primary.mt-3 data-action="clipboard#copy" data-bs-toggle="copy-tooltip" data-bs-placement="right" title="Copied!" Copy to Clipboard
