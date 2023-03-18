@@ -27,7 +27,15 @@ export default class extends Controller {
   }
 
   selectCell(event) {
-    event.target.classList.add("selected")
+    let targetCell = event.target;
+    if ([...targetCell.classList].includes("selected")) {
+      this.deselectCells();
+      targetCell.classList.remove("selected")
+      event.stopImmediatePropagation()
+    } else {
+      this.deselectCells()
+      event.target.classList.add("selected")
+    }
   }
 
   deselectCells() {

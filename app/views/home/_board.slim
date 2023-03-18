@@ -5,7 +5,7 @@ table#sudoku-board.table-bordered.text-center.ms-4
       - number_for_cell = @board[(row*8) + (cell+row)]
       td{
         data-board-target="cell"
-        data-action="click->board#deselectCells click->board#selectCell click->board#highlightAlikeCells"
+        data-action="click->board#selectCell click->board#highlightAlikeCells"
         style="#{[2,5,8].include?(cell) ? 'border-right: thick solid;' : ''}"
         class="p-4 #{number_for_cell.nil? ? '' : 'prefilledCell' }"
       }
