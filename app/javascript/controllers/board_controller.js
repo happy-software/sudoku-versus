@@ -29,13 +29,19 @@ export default class extends Controller {
 
   selectCell(event) {
     let targetCell = event.target;
+    if (targetCell.nodeName !== "TD" && targetCell.nodeName === "SPAN") {
+      // If the inner span is clicked then we want the parent <td> cell instead
+      targetCell = targetCell.parentNode;
+    }
+
     if ([...targetCell.classList].includes("selected")) {
       this.deselectCells();
       targetCell.classList.remove("selected")
       event.stopImmediatePropagation()
     } else {
       this.deselectCells()
-      event.target.classList.add("selected")
+      targetCell.classList.add("selected")
+      this.highlightAlikeCells(event)
     }
   }
 
@@ -47,9 +53,15 @@ export default class extends Controller {
   }
 
   highlightAlikeCells(event) {
-    const selectedNumber = event.target.innerText;
+    let targetCell = event.target;
+    if (targetCell.nodeName !== "TD" && targetCell.nodeName === "SPAN") {
+      // If the inner span is clicked then we want the parent <td> cell instead
+      targetCell = targetCell.parentNode;
+    }
+
+    const selectedNumber = targetCell.innerText;
     if (selectedNumber === "") { return }
-    let otherCells = this.cellTargets.filter((cell) => { return (cell.innerText === selectedNumber) && (cell !== event.target) })
+    let otherCells = this.cellTargets.filter((cell) => { return (cell.innerText === selectedNumber) && (cell !== targetCell) })
     otherCells.forEach((cell) => { cell.classList.add("highlighted") })
   }
 
