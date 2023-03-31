@@ -12,8 +12,8 @@ class HomeController < ApplicationController
     session[:user_name] ||= params[:user_name_input].titleize
     @user_name        = session[:user_name]
     @difficulty_level = params[:difficulty_level]
-    match = create_new_match(difficulty: @difficulty_level.to_s, player_1_name: @user_name)
-    @challenge_url = join_match_url(match_key: match.match_key)
+    @match = create_new_match(difficulty: @difficulty_level.to_s, player_1_name: @user_name)
+    @challenge_url = join_match_url(match_key: @match.match_key)
 
     respond_to do |format|
       format.turbo_stream do
