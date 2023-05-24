@@ -1,18 +1,20 @@
-.card-group
-  .card
-    .card-body.text-center
-      h5.card-title Hello, #{@user_name}
-      p.card-text We're waiting for your challenger to join.
+= turbo_stream_from @match.match_key
+#waiting_for_challenger_container
+  .card-group
+    .card
+      .card-body.text-center
+        h5.card-title Hello, #{@user_name}
+        p.card-text We're waiting for your challenger to join.
 
-  .card
-    .card-body.text-center
-      h5.card-title Waiting for Opponent
-      p.card-text Send this link to your opponent
-      #waitingToJoinSpinners.d-flex.justify-content-center
-        .spinner-grow.text-primary role="status"
-        .spinner-grow.text-primary.ms-4 role="status"
-        .spinner-grow.text-primary.ms-4 role="status"
-      div.mt-3 data-controller="clipboard"
-        label for="challenge_url" Challenge URL:
-        input.form-control id="challenge_url" type="text" value="#{@challenge_url}" readonly=true data-clipboard-target="source"
-        button.btn.btn-outline-primary.mt-3 data-action="clipboard#copy" data-bs-toggle="copy-tooltip" data-bs-placement="right" title="Copied!" Copy to Clipboard
+    .card
+      .card-body.text-center
+        h5.card-title Waiting for Opponent
+        p.card-text Send this link to your opponent
+        #waitingToJoinSpinners.d-flex.justify-content-center
+          .spinner-grow.text-primary role="status"
+          .spinner-grow.text-primary.ms-4 role="status"
+          .spinner-grow.text-primary.ms-4 role="status"
+        div.mt-3 data-controller="clipboard"
+          label for="challenge_url" Challenge URL:
+          input.form-control id="challenge_url" type="text" value="#{@challenge_url}" readonly=true data-clipboard-target="source"
+          button.btn.btn-outline-primary.mt-3 data-action="clipboard#copy" data-bs-toggle="copy-tooltip" data-bs-placement="right" title="Copied!" Copy to Clipboard

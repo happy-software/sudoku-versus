@@ -15,8 +15,9 @@
       button.btn.btn-primary.mt-3 style="display: block;" Submit
 
 -elsif @player_2_start
-  #new_challenge_container
-    h3 🥊 #{@player_1_name.titleize} has challenged to a #{@difficulty_level} head-to-head match! 🥊
+  = turbo_stream_from @match_key
+  #player_2_accept_challenge_container
+    h3 🥊 #{@player_1_name.titleize} has challenged to a #{@difficulty_level.to_s.split("_").join(' ')} head-to-head match! 🥊
     form action=accept_challenge_url method="POST"
       - if session[:user_name].present?
         p Ready for another game, #{session[:user_name]}?
