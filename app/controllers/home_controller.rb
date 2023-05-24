@@ -12,8 +12,8 @@ class HomeController < ApplicationController
     session[:user_name] ||= params[:user_name_input].titleize
     @user_name        = session[:user_name]
     @difficulty_level = params[:difficulty_level]
-    match = create_new_match(difficulty: @difficulty_level.to_s, player_1_name: @user_name)
-    @challenge_url = join_match_url(match_key: match.match_key)
+    @match            = create_new_match(difficulty: @difficulty_level.to_s, player_1_name: @user_name)
+    @challenge_url    = join_match_url(match_key: @match.match_key)
 
     respond_to do |format|
       format.turbo_stream do
@@ -49,15 +49,9 @@ class HomeController < ApplicationController
 
     @board = match.starting_board
 
-    respond_to do |format|
-      format.turbo_stream do
-        render turbo_stream: [
-          turbo_stream.replace('new_challenge_container', partial: 'home/board')
-        ]
-      end
-      # format.turbo_stream { render turbo_stream: turbo_stream.replace('players_form', partial: 'new_player') }
-
-    end
+    game_html = render_to_string("home/_game", layout: false, locals: {board: @board})
+    Turbo::StreamsChannel.broadcast_update_to(match.match_key, target: 'waiting_for_challenger_container', html: game_html)
+    Turbo::StreamsChannel.broadcast_update_to(match.match_key, target: 'player_2_accept_challenge_container', html: game_html)
   end
 
   private

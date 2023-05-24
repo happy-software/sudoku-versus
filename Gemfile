@@ -69,3 +69,4 @@ end
 
 gem 'slim-rails'
 gem 'sudoku_builder', git: 'https://github.com/hebron-george/sudoku-gem2', branch: 'master'
+gem 'pry-rails'
