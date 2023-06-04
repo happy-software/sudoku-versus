@@ -10,9 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_10_020342) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_02_023442) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "games", force: :cascade do |t|
+    t.uuid "uuid"
+    t.string "player_number"
+    t.string "player_name"
+    t.jsonb "submissions"
+    t.bigint "match_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["match_id"], name: "index_games_on_match_id"
+  end
 
   create_table "matches", force: :cascade do |t|
     t.jsonb "solution"

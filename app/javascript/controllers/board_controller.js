@@ -1,4 +1,6 @@
 import { Controller } from "@hotwired/stimulus"
+import { FetchRequest } from "@rails/request.js";
+import party from "party-js";
 
 export default class extends Controller {
   static targets = ['cell']
@@ -16,7 +18,9 @@ export default class extends Controller {
       if (selectedCell.classList.contains("prefilledCell")) { return }
 
       if (e.code === 'Backspace') {
+        if(selectedCell.classList.contains("correctSelection")) { return }
         selectedCell.innerText = ""
+        selectedCell.classList.remove("incorrectSelection")
         return;
       }
 
@@ -69,13 +73,39 @@ export default class extends Controller {
     // Get selected cell
     let selectedCell = this.cellTargets.find(cell => cell.classList.contains("selected"))
     if (selectedCell === undefined) { return }
+    if (selectedCell.classList.contains("prefilledCell")) { return }
+    if (selectedCell.classList.contains("correctSelection")) { return }
 
+    const selectedNumber = event.target.innerText;
+    const cellIndex = selectedCell.id;
+
+    const request = this.isSelectionCorrect(selectedNumber, cellIndex)
+
+    request.then((response) => {
+      if (response.ok) {
+        const bodyPromise = response.json
+        bodyPromise.then((body) => {
+          const is_correct   = body.is_correct
+          const is_game_over = body.game_over
+
+          if (is_correct) {
+            selectedCell.classList.add("correctSelection")
+            if (is_game_over) {
+              party.confetti(selectedCell, {count: 200})
+            }
+          } else {
+            selectedCell.classList.add("incorrectSelection")
+          }
+        })
+
+      }
+    })
     // Update it's value with the selection
     while (selectedCell.firstChild) {
       selectedCell.removeChild(selectedCell.lastChild);
     }
     const span = selectedCell.appendChild(document.createElement('span'))
-    span.textContent = event.target.innerText;
+    span.textContent = selectedNumber;
 
     this.deselectCells()
     this.highlightAlikeCells(event)
@@ -97,4 +127,17 @@ export default class extends Controller {
     selectionRow.hidden = false;
   }
 
+  async isSelectionCorrect(selectedNumber, cellIndex) {
+    const requestData = {
+      body: {
+        game_id: document.getElementById("game-id").innerText,
+        match_id: document.getElementById("match-id").innerText,
+        selected_cell: cellIndex,
+        selected_value: selectedNumber
+      }
+    }
+    const request = new FetchRequest('post', 'http://localhost:3000/check_input', requestData)
+    const response = await request.perform()
+    return response
+  }
 }
