@@ -4,7 +4,6 @@ table#sudoku-board.table-bordered.text-center.ms-4
     tr style="#{[3,6].include?(row) ? 'border-bottom: thick solid;': ''}"
     - (0..8).to_a.each do |cell|
       - number_for_cell = @board[(row*8) + (cell+row)]
-      - right_bordered  = [2,5,8].include?(cell) ? "rightBordered" : ""
       td{
         id="#{cell_counter}"
         data-board-target="cell"
