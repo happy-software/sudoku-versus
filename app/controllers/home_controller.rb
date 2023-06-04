@@ -47,31 +47,40 @@ class HomeController < ApplicationController
     match.player_2_name = @user_name
     match.save!
 
+    player_2_game = match.games.create!(player_number: :player_2, player_name: match.player_2_name, uuid: SecureRandom.uuid)
+
     @board = match.starting_board
 
-    game_html = render_to_string("home/_game", layout: false, locals: {board: @board})
-    Turbo::StreamsChannel.broadcast_update_to(match.match_key, target: 'waiting_for_challenger_container', html: game_html)
-    Turbo::StreamsChannel.broadcast_update_to(match.match_key, target: 'player_2_accept_challenge_container', html: game_html)
+    game_1_html = render_to_string("home/_game", layout: false, locals: {board: @board, match_key: match.match_key, game_uuid: match.player_1_game.uuid})
+    game_2_html = render_to_string("home/_game", layout: false, locals: {board: @board, match_key: match.match_key, game_uuid: player_2_game.uuid})
+
+    Turbo::StreamsChannel.broadcast_update_to(match.match_key, target: 'waiting_for_challenger_container', html: game_1_html)
+    Turbo::StreamsChannel.broadcast_update_to(match.match_key, target: 'player_2_accept_challenge_container', html: game_2_html)
   end
 
   private
 
   def create_new_match(difficulty:, player_1_name:)
-    if difficulty.to_s.downcase == 'easy'
-      game = SudokuBuilder.create.easy
+    difficulty_level = if difficulty.to_s.downcase == 'easy'
+      (25..32).to_a.sample
     elsif difficulty.to_s.downcase == 'medium'
-      game = SudokuBuilder.create.medium
+      (31..39).to_a.sample
     elsif difficulty.to_s.downcase == 'hard'
-      game = SudokuBuilder.create.hard
+      (38..46).to_a.sample
     elsif difficulty.to_s.downcase == 'very_hard'
-      game = SudokuBuilder.create.poke(55)
+      (55..65).to_a.sample
     else
       ArgumentError.new("Given difficulty level: (#{difficulty}) is not recognized! Possible Options: (Easy, Medium, Hard, Very Hard)")
     end
 
-    starting_board = game.to_a.flatten
-    solution       = game.solve.to_a.flatten
+    board           = SudokuBuilder.create
+    solution       = board.to_a.flatten
+    starting_board = board.poke(difficulty_level).to_a.flatten
     match_key      = SecureRandom.uuid
-    Match.create!(starting_board: starting_board, solution: solution, match_key: match_key, player_1_name: player_1_name, difficulty_level: difficulty)
+    match          = Match.create!(starting_board: starting_board, solution: solution, match_key: match_key, player_1_name: player_1_name, difficulty_level: difficulty)
+
+    match.games.create!(player_number: :player_1, player_name: player_1_name, uuid: SecureRandom.uuid)
+
+    match
   end
 end

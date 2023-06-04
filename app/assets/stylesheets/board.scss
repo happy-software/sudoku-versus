@@ -33,7 +33,10 @@
 }
 
 .incorrectSelection {
-  background-color: indianred;
+  background-color: indianred !important;
+  span {
+    color: white !important;
+  }
 }
 
 #selectionRow {
