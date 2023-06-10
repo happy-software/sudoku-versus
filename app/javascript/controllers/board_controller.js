@@ -89,6 +89,7 @@ export default class extends Controller {
           const is_game_over = body.game_over
 
           if (is_correct) {
+            selectedCell.classList.remove("incorrectSelection")
             selectedCell.classList.add("correctSelection")
             if (is_game_over) {
               party.confetti(selectedCell, {count: 200})

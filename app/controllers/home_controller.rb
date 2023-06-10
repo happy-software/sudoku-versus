@@ -73,7 +73,7 @@ class HomeController < ApplicationController
       ArgumentError.new("Given difficulty level: (#{difficulty}) is not recognized! Possible Options: (Easy, Medium, Hard, Very Hard)")
     end
 
-    board           = SudokuBuilder.create
+    board          = SudokuBuilder.create
     solution       = board.to_a.flatten
     starting_board = board.poke(difficulty_level).to_a.flatten
     match_key      = SecureRandom.uuid
