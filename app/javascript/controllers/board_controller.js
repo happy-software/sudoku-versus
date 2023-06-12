@@ -1,6 +1,5 @@
 import { Controller } from "@hotwired/stimulus"
 import { FetchRequest } from "@rails/request.js";
-import party from "party-js";
 
 export default class extends Controller {
   static targets = ['cell']
@@ -89,10 +88,8 @@ export default class extends Controller {
           const is_game_over = body.game_over
 
           if (is_correct) {
+            selectedCell.classList.remove("incorrectSelection")
             selectedCell.classList.add("correctSelection")
-            if (is_game_over) {
-              party.confetti(selectedCell, {count: 200})
-            }
           } else {
             selectedCell.classList.add("incorrectSelection")
           }

@@ -11,6 +11,14 @@ class GameController < ApplicationController
     game = Game.find_by_uuid!(game_id)
     game.record_selection!(selected_value, selected_cell, is_correct)
 
-    render json: { is_correct: is_correct, game_over: game.game_over? }
+    if game.game_over?
+      stats = match.game_over_stats
+      game_over_html = render_to_string("game/_stats", layout: false, locals: { final_stats: stats })
+
+      Turbo::StreamsChannel.broadcast_replace_to(match.match_key, target: 'waiting_for_challenger_container', html: game_over_html)
+      Turbo::StreamsChannel.broadcast_replace_to(match.match_key, target: 'player_2_accept_challenge_container', html: game_over_html)
+    else
+      render json: { is_correct: is_correct, game_over: game.game_over? }
+    end
   end
 end
