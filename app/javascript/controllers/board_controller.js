@@ -133,7 +133,7 @@ export default class extends Controller {
         selected_value: selectedNumber
       }
     }
-    const request = new FetchRequest('post', 'http://localhost:3000/check_input', requestData)
+    const request = new FetchRequest('post', 'https://sudoku-vs.fly.dev/check_input', requestData)
     const response = await request.perform()
     return response
   }
