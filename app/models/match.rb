@@ -22,7 +22,9 @@ class Match < ApplicationRecord
       player_1_time:     player_1_stats.fetch(:total_time),
       player_2_time:     player_2_stats.fetch(:total_time),
       player_1_accuracy: player_1_stats.fetch(:accuracy).round(2),
+      player_1_grade:    player_1_stats.fetch(:accuracy_grade),
       player_2_accuracy: player_2_stats.fetch(:accuracy).round(2),
+      player_2_grade:    player_2_stats.fetch(:accuracy_grade),
     }
   end
 end

@@ -33,10 +33,25 @@ class Game < ApplicationRecord
     first_move_time    = sorted_submissions.first.fetch('timestamp').to_datetime
     last_move_time     = sorted_submissions.last.fetch('timestamp').to_datetime
     accuracy           = (self.submissions.select { |s| s.fetch('is_correct') }.count.to_f / self.submissions.count.to_f) * 100
+    accuracy_grade     = case accuracy
+                         when 95..100
+                           "A+ 🌟"
+                         when 90...95
+                           "A-"
+                         when 80...90
+                           "B"
+                         when 70...80
+                           "C"
+                         when 60...70
+                           "D"
+                         when 0...60
+                           "F 😱"
+                         end
 
     {
       played_move_count: self.submissions.count,
       accuracy:          accuracy,
+      accuracy_grade:    accuracy_grade,
       player_number:     self.player_number,
       player_name:       self.player_name,
       start_time:        first_move_time,
@@ -63,6 +78,7 @@ class Game < ApplicationRecord
     {
       played_move_count: 0,
       accuracy:          0,
+      accuracy_grade:    "(X)",
       player_name:       self.player_name,
       player_number:     self.player_number,
       start_time:        nil,
