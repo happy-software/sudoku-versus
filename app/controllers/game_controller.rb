@@ -12,7 +12,8 @@ class GameController < ApplicationController
     game.record_selection!(selected_value, selected_cell, is_correct)
 
     if game.game_over?
-      stats = match.game_over_stats
+      match.set_end_time!
+      stats          = match.game_over_stats
       game_over_html = render_to_string("game/_stats", layout: false, locals: { final_stats: stats })
 
       Turbo::StreamsChannel.broadcast_replace_to(match.match_key, target: 'waiting_for_challenger_container', html: game_over_html)
