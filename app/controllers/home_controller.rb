@@ -36,6 +36,8 @@ class HomeController < ApplicationController
     @player_1_name = match.player_1_name
     @match_key     = match.match_key
     @difficulty_level = match.difficulty_level
+
+    puts "Player 2 looking to join #{@difficulty_level} match(#{@match_key}) against #{@player_1_name}"
     render 'new'
   end
 
@@ -54,6 +56,7 @@ class HomeController < ApplicationController
     game_1_html = render_to_string("home/_game", layout: false, locals: {board: @board, match_key: match.match_key, game_uuid: match.player_1_game.uuid})
     game_2_html = render_to_string("home/_game", layout: false, locals: {board: @board, match_key: match.match_key, game_uuid: player_2_game.uuid})
 
+    puts "Player 2 (#{@user_name}) accepting challenge for match(#{match.match_key}) against Player 1 (#{match.player_1_game.player_name})"
     Turbo::StreamsChannel.broadcast_update_to(match.match_key, target: 'waiting_for_challenger_container', html: game_1_html)
     Turbo::StreamsChannel.broadcast_update_to(match.match_key, target: 'player_2_accept_challenge_container', html: game_2_html)
   end
