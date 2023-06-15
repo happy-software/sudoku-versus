@@ -1,5 +1,5 @@
 h2 Game Over!
-
+p ⏱️ #{final_stats.fetch(:total_time)}
 #game_over_stats
   .card-group
     .card
@@ -7,7 +7,6 @@ h2 Game Over!
         h5.card-title Player 1 (#{final_stats.fetch(:player_1_name)})
         p.card-text #{final_stats.fetch(:winner).to_s == 'player_1' ? "🎉 Winner! 🎉" : "" }
         ul.list-group-list-group-flush
-          li.list-group-item Time: #{final_stats.fetch(:player_1_time)}
           li.list-group-item Accuracy: #{final_stats.fetch(:player_1_accuracy)}% #{final_stats.fetch(:player_1_grade)}
 
 
@@ -16,7 +15,6 @@ h2 Game Over!
         h5.card-title Player 2 (#{final_stats.fetch(:player_2_name)})
         p.card-text #{final_stats.fetch(:winner).to_s == 'player_2' ? "🎉 Winner! 🎉" : "" }
         ul.list-group-list-group-flush
-          li.list-group-item Time: #{final_stats.fetch(:player_2_time)}
           li.list-group-item Accuracy: #{final_stats.fetch(:player_2_accuracy)}% #{final_stats.fetch(:player_2_grade)}
 
 #play_again.position-relative
