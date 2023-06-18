@@ -1,6 +1,10 @@
 class Game < ApplicationRecord
   belongs_to :match
 
+  # Records all the selections the player has made.
+  # @param [Integer] selected_value
+  # @param [Integer] selected_cell
+  # @param [Boolean] is_correct
   def record_selection!(selected_value, selected_cell, is_correct)
     self.submissions ||= []
     self.submissions << {
@@ -11,6 +15,28 @@ class Game < ApplicationRecord
     }
 
     self.save!
+  end
+
+  # The current board with all the correct moves
+  # the player has played up until now.
+  # @return [Array]
+  def current_board
+    board               = self.match.starting_board.dup
+    correct_submissions = (self.submissions || []).select { |s| s.fetch('is_correct') }
+    correct_submissions.each do |submission|
+      board[submission.fetch('selected_cell').to_i] = submission.fetch('selected_value').to_i
+    end
+
+    board
+  end
+
+  # Returns numbers that haven't been completed yet.
+  # i.e. If a number hasn't been correctly placed in all
+  # nine of it's cells, it's considered to be remaining.
+  def remaining_numbers
+    (1..9).to_a.select do |number|
+      current_board.count(number) < 9
+    end
   end
 
   def game_over?

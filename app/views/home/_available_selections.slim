@@ -1,6 +1,6 @@
 #selectionRow.row
   .col-md-10.col-sm-12
-    div.mt-4.mb-4.row
+    div.ms-4.mt-4.mb-4.row
       - (1..9).each do |num|
         div.col.btn.btn-primary.me-2 data-action="click->board#makeSelection" id="select_#{num}"
           | #{num}
