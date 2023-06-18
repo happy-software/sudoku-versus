@@ -74,6 +74,7 @@ export default class extends Controller {
     if (selectedCell === undefined) { return }
     if (selectedCell.classList.contains("prefilledCell")) { return }
     if (selectedCell.classList.contains("correctSelection")) { return }
+    if (event.target.classList.contains("d-none")) { return } // Do nothing for keyboard users for completed numbers
 
     const selectedNumber = event.target.innerText;
     const cellIndex = selectedCell.id;
@@ -84,12 +85,19 @@ export default class extends Controller {
       if (response.ok) {
         const bodyPromise = response.json
         bodyPromise.then((body) => {
-          const is_correct   = body.is_correct
-          const is_game_over = body.game_over
+          const is_correct        = body.is_correct
+          const is_game_over      = body.game_over
+          const remaining_numbers = Array.from(body.remaining_numbers)
 
           if (is_correct) {
             selectedCell.classList.remove("incorrectSelection")
             selectedCell.classList.add("correctSelection")
+            if (!remaining_numbers.includes(parseInt(selectedNumber))) {
+              // Hide the number from selection options since
+              // it is no longer a remaining number (i.e. it has been
+              // completed).
+              document.getElementById(`select_${selectedNumber}`).classList.add('d-none')
+            }
           } else {
             selectedCell.classList.add("incorrectSelection")
           }
@@ -111,6 +119,7 @@ export default class extends Controller {
   }
 
   startEditing() {
+    // TODO: Need to get this working at some point
     let editRow = document.getElementById("editRow");
     let selectionRow = document.getElementById('selectionRow')
     editRow.hidden = false;
@@ -118,6 +127,7 @@ export default class extends Controller {
   }
 
   stopEditing() {
+    // TODO: Need to get this working at some point
     let editRow = document.getElementById("editRow");
     let selectionRow = document.getElementById('selectionRow')
     editRow.hidden = true;

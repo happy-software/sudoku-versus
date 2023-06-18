@@ -19,7 +19,7 @@ class GameController < ApplicationController
       Turbo::StreamsChannel.broadcast_replace_to(match.match_key, target: 'waiting_for_challenger_container', html: game_over_html)
       Turbo::StreamsChannel.broadcast_replace_to(match.match_key, target: 'player_2_accept_challenge_container', html: game_over_html)
     else
-      render json: { is_correct: is_correct, game_over: game.game_over? }
+      render json: { is_correct: is_correct, game_over: game.game_over?, remaining_numbers: game.remaining_numbers }
     end
   end
 end
