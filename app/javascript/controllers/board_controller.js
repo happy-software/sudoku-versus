@@ -74,7 +74,7 @@ export default class extends Controller {
     if (selectedCell === undefined) { return }
     if (selectedCell.classList.contains("prefilledCell")) { return }
     if (selectedCell.classList.contains("correctSelection")) { return }
-    if (event.target.classList.contains("d-none")) { return } // Do nothing for keyboard users for completed numbers
+    if (event.target.classList.contains("disabled")) { return } // Do nothing for keyboard users for completed numbers
 
     const selectedNumber = event.target.innerText;
     const cellIndex = selectedCell.id;
@@ -96,7 +96,10 @@ export default class extends Controller {
               // Hide the number from selection options since
               // it is no longer a remaining number (i.e. it has been
               // completed).
-              document.getElementById(`select_${selectedNumber}`).classList.add('d-none')
+              document.getElementById(`select_${selectedNumber}`).classList.remove('btn-primary')
+              document.getElementById(`select_${selectedNumber}`).classList.add('btn')
+              document.getElementById(`select_${selectedNumber}`).classList.add('btn-outline-secondary')
+              document.getElementById(`select_${selectedNumber}`).classList.add('disabled')
             }
           } else {
             selectedCell.classList.add("incorrectSelection")
@@ -143,7 +146,9 @@ export default class extends Controller {
         selected_value: selectedNumber
       }
     }
-    const request = new FetchRequest('post', 'https://sudoku-vs.fly.dev/check_input', requestData)
+    let is_prod = true
+    let url = is_prod === true ? "https://sudoku-vs.fly.dev/check_input" : "http://localhost:3000/check_input"
+    const request = new FetchRequest('post', url, requestData)
     const response = await request.perform()
     return response
   }
