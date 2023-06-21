@@ -1,9 +1,12 @@
 #selectionRow.row.mx-auto
-  div.ms-1.mt-4.mb-4.row
-    - (1..9).each do |num|
+  div.ms-1.mt-4.row
+    - (1..5).each do |num|
       div.col.btn.btn-primary.me-2 data-action="click->board#makeSelection" id="select_#{num}"
         | #{num}
-
+  div.ms-1.mt-1.row
+    - (6..9).each do |num|
+      div.col.btn.btn-primary.me-2 data-action="click->board#makeSelection" id="select_#{num}"
+        | #{num}
 /   .col-md-2.mt-4.mb-4
 /     button.btn.btn-secondary type="button" data-action="click->board#startEditing"
 /       i.bi.bi-pencil
