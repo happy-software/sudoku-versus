@@ -26,14 +26,16 @@ class Match < ApplicationRecord
     winner = [player_1_stats, player_2_stats].find { |stats| stats.fetch(:completed_board) }&.fetch(:player_number) || "N/A"
 
     {
-      winner:            winner,
-      player_1_name:     player_1_stats.fetch(:player_name),
-      player_2_name:     player_2_stats.fetch(:player_name),
-      player_1_accuracy: player_1_stats.fetch(:accuracy).round(2),
-      player_1_grade:    player_1_stats.fetch(:accuracy_grade),
-      player_2_accuracy: player_2_stats.fetch(:accuracy).round(2),
-      player_2_grade:    player_2_stats.fetch(:accuracy_grade),
-      total_time:        humanize((self.ended_at - self.started_at).to_i),
+      winner:                winner,
+      player_1_name:         player_1_stats.fetch(:player_name),
+      player_2_name:         player_2_stats.fetch(:player_name),
+      player_1_accuracy:     player_1_stats.fetch(:accuracy).round(2),
+      player_1_grade:        player_1_stats.fetch(:accuracy_grade),
+      player_2_accuracy:     player_2_stats.fetch(:accuracy).round(2),
+      player_2_grade:        player_2_stats.fetch(:accuracy_grade),
+      player_1_squares_left: player_1_stats.fetch(:squares_left),
+      player_2_squares_left: player_2_stats.fetch(:squares_left),
+      total_time:            humanize((self.ended_at - self.started_at).to_i),
     }
   end
 

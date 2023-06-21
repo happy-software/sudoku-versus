@@ -8,6 +8,7 @@ p ⏱️ #{final_stats.fetch(:total_time)}
         p.card-text #{final_stats.fetch(:winner).to_s == 'player_1' ? "🎉 Winner! 🎉" : "" }
         ul.list-group-list-group-flush
           li.list-group-item Accuracy: #{final_stats.fetch(:player_1_accuracy)}% #{final_stats.fetch(:player_1_grade)}
+          = render partial: "game/squares_left", locals: { player_squares_left: final_stats.fetch(:player_1_squares_left) }
 
 
     .card
@@ -16,6 +17,7 @@ p ⏱️ #{final_stats.fetch(:total_time)}
         p.card-text #{final_stats.fetch(:winner).to_s == 'player_2' ? "🎉 Winner! 🎉" : "" }
         ul.list-group-list-group-flush
           li.list-group-item Accuracy: #{final_stats.fetch(:player_2_accuracy)}% #{final_stats.fetch(:player_2_grade)}
+          = render partial: "game/squares_left", locals: { player_squares_left: final_stats.fetch(:player_2_squares_left) }
 
 #play_again.position-relative
   a.btn.btn-primary.mt-3.position-absolute.start-50.top-50.translate-middle-x href="#{new_url}" Play Again!

@@ -1,0 +1,12 @@
+- if player_squares_left > 0
+  - additional_message = case player_squares_left
+  - when 0..2
+    - "🤏🏽 So close!"
+  - when 3..5
+    - "😩 Almost!"
+  - when 6..10
+    - "😬 oof..."
+  - else
+    - "🤦🏽 Not even close!"
+
+  li.list-group-item Squares Left: <b>#{player_squares_left}</b> #{additional_message}

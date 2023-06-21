@@ -40,15 +40,7 @@ class Game < ApplicationRecord
   end
 
   def game_over?
-    board               = self.match.starting_board
-    submissions         = self.submissions || []
-    correct_submissions = submissions.select { |s| s.fetch('is_correct') }
-
-    correct_submissions.each do |submission|
-      board[submission.fetch('selected_cell').to_i] = submission.fetch('selected_value')
-    end
-
-    board.none?(nil)
+    self.current_board.none?(nil)
   end
 
   def stats
@@ -81,6 +73,7 @@ class Game < ApplicationRecord
       player_number:     self.player_number,
       player_name:       self.player_name,
       completed_board:   self.game_over?,
+      squares_left:      self.current_board.count(nil),
     }
   end
 
@@ -93,6 +86,7 @@ class Game < ApplicationRecord
       player_name:       self.player_name,
       player_number:     self.player_number,
       completed_board:   false,
+      squares_left:      self.current_board.count(nil),
     }
   end
 end
