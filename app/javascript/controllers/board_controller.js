@@ -28,6 +28,7 @@ export default class extends Controller {
       // button click event for the digit that was selected.
       document.getElementById(`select_${e.key}`).click()
     };
+    this.disableCompletedNumberSelection();
   }
 
   selectCell(event) {
@@ -96,16 +97,12 @@ export default class extends Controller {
               // Hide the number from selection options since
               // it is no longer a remaining number (i.e. it has been
               // completed).
-              document.getElementById(`select_${selectedNumber}`).classList.remove('btn-primary')
-              document.getElementById(`select_${selectedNumber}`).classList.add('btn')
-              document.getElementById(`select_${selectedNumber}`).classList.add('btn-outline-secondary')
-              document.getElementById(`select_${selectedNumber}`).classList.add('disabled')
+              this.markSelectionNumberDisabled(selectedNumber)
             }
           } else {
             selectedCell.classList.add("incorrectSelection")
           }
         })
-
       }
     })
     // Update it's value with the selection
@@ -137,6 +134,31 @@ export default class extends Controller {
     selectionRow.hidden = false;
   }
 
+  disableCompletedNumberSelection() {
+    // Get all the prefilled cells
+    let prefilled = document.getElementsByClassName('prefilledCell')
+
+    // Of the prefilled cells, find the numbers that have all 9 already filled
+    let available_numbers = []
+    for(let i = 0; i < prefilled.length; i++) {
+      let cell = prefilled.item(i)
+      available_numbers.push(cell.dataset.boardPrefilledValue)
+    }
+    const number_counts = available_numbers.reduce((acc, e) => acc.set(e, (acc.get(e) || 0) + 1), new Map());
+
+    let filled_numbers = []
+    for(let pair of number_counts) { if(pair[1] === 9) { filled_numbers.push(pair[0])} }
+
+    // Of the already filled numbers, disable the selection button for it
+    for(let number of filled_numbers) { this.markSelectionNumberDisabled(number) }
+  }
+
+  markSelectionNumberDisabled(selectedNumber) {
+    document.getElementById(`select_${selectedNumber}`).classList.remove('btn-primary')
+    document.getElementById(`select_${selectedNumber}`).classList.add('btn')
+    document.getElementById(`select_${selectedNumber}`).classList.add('btn-outline-secondary')
+    document.getElementById(`select_${selectedNumber}`).classList.add('disabled')
+  }
   async isSelectionCorrect(selectedNumber, cellIndex) {
     const requestData = {
       body: {
