@@ -122,7 +122,9 @@ export default class extends Controller {
   }
 
   clearCell(selectedCell) {
-    if(selectedCell.classList.contains("correctSelection")) { return }
+    if (selectedCell.classList.contains("prefilledCell"))    { return }
+    if (selectedCell.classList.contains("correctSelection")) { return }
+
     selectedCell.innerText = ""
     selectedCell.classList.remove("incorrectSelection")
   }
