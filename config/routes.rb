@@ -6,7 +6,6 @@ Rails.application.routes.draw do
   get '/new', to: 'home#new'
   post '/create_challenge', to: 'home#create_challenge'
   post '/accept_challenge', to: 'home#accept_challenge'
-  get '/waiting_for_challenger/:match_uuid', to: 'home#waiting_for_challenger', as: 'waiting_for_challenger'
   get '/join_match/:match_key', to: 'home#join_match', as: 'join_match'
 
   post '/check_input', to: 'game#check_input'

@@ -15,6 +15,7 @@ class HomeController < ApplicationController
     @match            = create_new_match(difficulty: @difficulty_level.to_s, player_1_name: @user_name)
     @challenge_url    = join_match_url(match_key: @match.match_key)
 
+    puts "#{@user_name} has created a challenge (match: #{@match.match_key})"
     respond_to do |format|
       format.turbo_stream do
         render turbo_stream: [
@@ -22,10 +23,6 @@ class HomeController < ApplicationController
         ]
       end
     end
-  end
-
-  def waiting_for_challenger
-    @challenge_creator_name = params[:match_uuid] # TODO: Update this stubbed value
   end
 
   def join_match
