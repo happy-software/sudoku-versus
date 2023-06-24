@@ -17,9 +17,7 @@ export default class extends Controller {
       if (selectedCell.classList.contains("prefilledCell")) { return }
 
       if (e.code === 'Backspace') {
-        if(selectedCell.classList.contains("correctSelection")) { return }
-        selectedCell.innerText = ""
-        selectedCell.classList.remove("incorrectSelection")
+        that.clearCell(selectedCell)
         return;
       }
 
@@ -116,6 +114,17 @@ export default class extends Controller {
     this.highlightAlikeCells(event)
     selectedCell.classList.remove("highlighted")
     selectedCell.classList.add("selected")
+  }
+
+  clearButtonClick(event) {
+    let selectedCell = this.cellTargets.find(cell => cell.classList.contains("selected"))
+    this.clearCell(selectedCell)
+  }
+
+  clearCell(selectedCell) {
+    if(selectedCell.classList.contains("correctSelection")) { return }
+    selectedCell.innerText = ""
+    selectedCell.classList.remove("incorrectSelection")
   }
 
   startEditing() {

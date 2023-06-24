@@ -7,6 +7,8 @@
     - (6..9).each do |num|
       div.col.btn.btn-primary.me-2 data-action="click->board#makeSelection" id="select_#{num}"
         | #{num}
+    div.col.btn.btn-outline-danger.me-2 data-action="click->board#clearButtonClick" id="clear_square"
+      | X
 /   .col-md-2.mt-4.mb-4
 /     button.btn.btn-secondary type="button" data-action="click->board#startEditing"
 /       i.bi.bi-pencil
