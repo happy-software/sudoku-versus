@@ -15,6 +15,7 @@ class HomeController < ApplicationController
     @match            = create_new_match(difficulty: @difficulty_level.to_s, player_1_name: @user_name)
     @challenge_url    = join_match_url(match_key: @match.match_key)
 
+    puts "#{@user_name} has created a challenge (match: #{@match.match_key})"
     respond_to do |format|
       format.turbo_stream do
         render turbo_stream: [
