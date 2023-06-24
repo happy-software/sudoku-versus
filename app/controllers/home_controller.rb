@@ -24,10 +24,6 @@ class HomeController < ApplicationController
     end
   end
 
-  def waiting_for_challenger
-    @challenge_creator_name = params[:match_uuid] # TODO: Update this stubbed value
-  end
-
   def join_match
     @player_1_start = false
     @player_2_start = true
