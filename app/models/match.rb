@@ -12,11 +12,11 @@ class Match < ApplicationRecord
   end
 
   def player_1_game
-    games.where(player_number: :player_1, player_name: player_1_name).first
+    games.where(player_number: :player_1, player_name: player_1_name).last
   end
 
   def player_2_game
-    games.where(player_number: :player_2, player_name: player_2_name).first
+    games.where(player_number: :player_2, player_name: player_2_name).last
   end
 
   def game_over_stats
