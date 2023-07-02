@@ -47,3 +47,9 @@
 #editRow {
 
 }
+
+@media only screen and (max-width: 415px) {
+  td {
+    padding: 14px;
+  }
+}
