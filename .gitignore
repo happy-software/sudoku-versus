@@ -37,3 +37,4 @@
 
 # RubyMine files
 .idea*
+/config/credentials/production.key
