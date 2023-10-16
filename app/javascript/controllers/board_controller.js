@@ -179,10 +179,11 @@ export default class extends Controller {
         selected_value: selectedNumber
       }
     }
-    let is_prod = true
-    let url = is_prod === true ? "https://sudoku-vs.fly.dev/check_input" : "http://localhost:3000/check_input"
-    const request = new FetchRequest('post', url, requestData)
+
+    let url        = window.input_checker_url // Set in layouts/application.slim
+    const request  = new FetchRequest('post', url, requestData)
     const response = await request.perform()
+
     return response
   }
 }
