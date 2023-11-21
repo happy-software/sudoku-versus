@@ -27,6 +27,8 @@ export default class extends Controller {
       document.getElementById(`select_${e.key}`).click()
     };
     this.disableCompletedNumberSelection();
+
+    console.log(`Connected to BoardController with input checker as ${window.input_checker_url}`)
   }
 
   selectCell(event) {
