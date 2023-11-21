@@ -10,7 +10,8 @@ html lang="en"
     = javascript_include_tag "application", "data-turbo-track": "reload", defer: true
 
   javascript:
-    window.input_checker_url = #{ENV['INPUT_CHECKER_URL']}
+    window.input_checker_url = "#{ENV['INPUT_CHECKER_URL']}"
+
   body
     = render partial: 'layouts/shared/header'
     = yield
