@@ -9,8 +9,8 @@ html lang="en"
     = stylesheet_link_tag "application", "data-turbo-track": "reload"
     = javascript_include_tag "application", "data-turbo-track": "reload", defer: true
 
-  script
-    = "window.input_checker_url = \'#{ENV['INPUT_CHECKER_URL']}\'"
+  javascript:
+    window.input_checker_url = #{ENV['INPUT_CHECKER_URL']}
   body
     = render partial: 'layouts/shared/header'
     = yield
