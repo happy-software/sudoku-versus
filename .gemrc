@@ -1,0 +1,6 @@
+# Adding this gemrc file because, there was an issue pushing to Dokku
+#   => Retrying download gem from http://rubygems.org/ due to error (2/4): Gem::RemoteFetcher::UnknownHostError timed out
+# for when downloading the `dotenv` file. This SO post suggests setting the ipv4 flag so that ipv6 is skipped:
+
+# https://stackoverflow.com/a/66388201
+:ipv4_fallback_enabled: true
