@@ -38,6 +38,7 @@ COPY --link .gemrc ~
 RUN echo ~
 
 COPY --link Gemfile Gemfile.lock .gemrc ./
+RUN gem update --system
 RUN bundle install --verbose && \
     bundle exec bootsnap precompile --gemfile && \
     rm -rf ~/.bundle/ $BUNDLE_PATH/ruby/*/cache $BUNDLE_PATH/ruby/*/bundler/gems/*/.git
