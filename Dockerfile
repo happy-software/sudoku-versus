@@ -35,6 +35,8 @@ RUN curl -sL https://github.com/nodenv/node-build/archive/master.tar.gz | tar xz
 
 # Install application gems
 COPY --link .gemrc ~
+RUN echo ~
+
 COPY --link Gemfile Gemfile.lock .gemrc ./
 RUN bundle install --verbose && \
     bundle exec bootsnap precompile --gemfile && \
