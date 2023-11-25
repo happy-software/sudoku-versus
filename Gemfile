@@ -72,3 +72,4 @@ gem 'sudoku_builder', git: 'https://github.com/hebron-george/sudoku-gem2', branc
 gem 'pry-rails'
 
 gem "dockerfile-rails", ">= 1.5", :group => :development
+gem "ahoy_matey"

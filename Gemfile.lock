@@ -73,6 +73,10 @@ GEM
       i18n (>= 1.6, < 2)
       minitest (>= 5.1)
       tzinfo (~> 2.0)
+    ahoy_matey (5.0.2)
+      activesupport (>= 6.1)
+      device_detector (>= 1)
+      safely_block (>= 0.4)
     bindex (0.8.1)
     bootsnap (1.16.0)
       msgpack (~> 1.2)
@@ -86,6 +90,7 @@ GEM
     debug (1.7.1)
       irb (>= 1.5.0)
       reline (>= 0.3.1)
+    device_detector (1.1.1)
     dockerfile-rails (1.5.3)
       rails
     erubi (1.12.0)
@@ -170,6 +175,7 @@ GEM
     redis (4.8.1)
     reline (0.3.2)
       io-console (~> 0.5)
+    safely_block (0.4.0)
     slim (4.1.0)
       temple (>= 0.7.6, < 0.9)
       tilt (>= 2.0.6, < 2.1)
@@ -210,6 +216,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  ahoy_matey
   bootsnap
   cssbundling-rails
   debug
