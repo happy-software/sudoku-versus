@@ -9,7 +9,9 @@ class HomeController < ApplicationController
   end
 
   def create_challenge
-    session[:user_name] ||= params[:user_name_input].titleize
+    session[:user_name]    ||= params[:user_name_input].titleize
+    session[:session_uuid] ||= SecureRandom.uuid
+
     @user_name        = session[:user_name]
     @difficulty_level = params[:difficulty_level]
     @match            = create_new_match(difficulty: @difficulty_level.to_s, player_1_name: @user_name)
@@ -26,6 +28,8 @@ class HomeController < ApplicationController
   end
 
   def join_match
+    session[:session_uuid] ||= SecureRandom.uuid
+
     @player_1_start = false
     @player_2_start = true
 
