@@ -9,9 +9,17 @@ html lang="en"
     = stylesheet_link_tag "application", "data-turbo-track": "reload"
     = javascript_include_tag "application", "data-turbo-track": "reload", defer: true
 
+    link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png"
+    link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png"
+    link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png"
+
   javascript:
     window.input_checker_url = "#{ENV['INPUT_CHECKER_URL']}"
 
   body
     = render partial: 'layouts/shared/header'
-    = yield
+    .row
+      .col-md-2
+      .col-md-8.col-12
+        = yield
+      .col-md-2
