@@ -1,6 +1,14 @@
 class Game < ApplicationRecord
   belongs_to :match
 
+  def player_1?
+    self.player_number.to_sym == :player_1
+  end
+
+  def player_2?
+    self.player_number.to_sym == :player_2
+  end
+
   # Records all the selections the player has made.
   # @param [Integer] selected_value
   # @param [Integer] selected_cell
