@@ -1,6 +1,18 @@
 class Match < ApplicationRecord
   has_many :games
 
+  def match_started?
+    self.started_at?
+  end
+
+  def match_ended?
+    self.ended_at?
+  end
+
+  def game_for_session(session_uuid)
+    games.find_by_session_uuid(session_uuid)
+  end
+
   def set_start_time!(time=DateTime.now)
     self.started_at = time
     self.save!
