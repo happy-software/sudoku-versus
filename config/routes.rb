@@ -9,4 +9,7 @@ Rails.application.routes.draw do
   get '/join_match/:match_key', to: 'home#join_match', as: 'join_match'
 
   post '/check_input', to: 'game#check_input'
+  resources :games, only: [:show] do
+    post :check_input, as: "check_input"
+  end
 end
