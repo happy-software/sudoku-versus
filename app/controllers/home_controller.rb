@@ -28,9 +28,12 @@ class HomeController < ApplicationController
   def join_match
     session[:session_uuid] ||= SecureRandom.uuid
 
-    match = Match.find_by!(match_key: params[:match_key])
-    @player_1_name = match.player_1_name
-    @match_key     = match.match_key
+    match         = Match.find_by!(match_key: params[:match_key])
+    existing_game = match.games.find_by_session_uuid(session[:session_uuid])
+    redirect_to game_path(existing_game.uuid) if existing_game.present?
+
+    @player_1_name    = match.player_1_name
+    @match_key        = match.match_key
     @difficulty_level = match.difficulty_level
 
     puts "Player 2 looking to join #{@difficulty_level} match(#{@match_key}) against #{@player_1_name}"
