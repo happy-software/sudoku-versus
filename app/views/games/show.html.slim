@@ -1,0 +1,16 @@
+= turbo_stream_from @match.match_key
+#gameContainer
+  div data-controller="board"
+    match-id hidden=true readonly=true id="match-id"
+      = @match_key
+    game-id hidden=true readonly=true id="game-id"
+      = @game_uuid
+    div.row
+      div.col
+        = render partial: 'home/board', locals: {board: @board}
+
+    div.row
+      div.col-md-3
+      div.col-md-6
+        = render partial: "home/available_selections"
+      div.col-md-3
