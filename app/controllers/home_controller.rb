@@ -4,8 +4,6 @@ class HomeController < ApplicationController
   end
 
   def new
-    @player_1_start = true
-    @player_2_start = false
   end
 
   def create_challenge
@@ -18,28 +16,23 @@ class HomeController < ApplicationController
     @challenge_url    = join_match_url(match_key: @match.match_key)
 
     puts "#{@user_name} has created a challenge (match: #{@match.match_key})"
-    respond_to do |format|
-      format.turbo_stream do
-        render turbo_stream: [
-          turbo_stream.update('new_challenge_container', partial: 'home/waiting_for_challenger')
-        ]
-      end
-    end
+    redirect_to game_path(@match.player_1_game.uuid)
   end
 
   def join_match
     session[:session_uuid] ||= SecureRandom.uuid
 
-    @player_1_start = false
-    @player_2_start = true
+    match         = Match.find_by!(match_key: params[:match_key])
+    existing_game = match.games.find_by_session_uuid(session[:session_uuid])
+    redirect_to game_path(existing_game.uuid) if existing_game.present?
 
-    match = Match.find_by!(match_key: params[:match_key])
-    @player_1_name = match.player_1_name
-    @match_key     = match.match_key
+    redirect_to new_path if match.match_started?
+
+    @player_1_name    = match.player_1_name
+    @match_key        = match.match_key
     @difficulty_level = match.difficulty_level
 
     puts "Player 2 looking to join #{@difficulty_level} match(#{@match_key}) against #{@player_1_name}"
-    render 'new'
   end
 
   def accept_challenge
@@ -54,14 +47,12 @@ class HomeController < ApplicationController
 
     @board = match.starting_board
 
-    game_1_html = render_to_string("home/_game", layout: false, locals: {board: @board, match_key: match.match_key, game_uuid: match.player_1_game.uuid})
-    game_2_html = render_to_string("home/_game", layout: false, locals: {board: @board, match_key: match.match_key, game_uuid: player_2_game.uuid})
-
+    game_1_html = render_to_string("games/show", layout: false, assigns: {game: match.player_1_game, board: @board, match: match, match_key: match.match_key, game_uuid: match.player_1_game.uuid})
     match.set_start_time!
 
     puts "Player 2 (#{@user_name}) accepting challenge for match(#{match.match_key}) against Player 1 (#{match.player_1_game.player_name})"
-    Turbo::StreamsChannel.broadcast_update_to(match.match_key, target: 'waiting_for_challenger_container', html: game_1_html)
-    Turbo::StreamsChannel.broadcast_update_to(match.match_key, target: 'player_2_accept_challenge_container', html: game_2_html)
+    Turbo::StreamsChannel.broadcast_replace_to(match.match_key, target: 'waiting_for_challenger_container', html: game_1_html)
+    redirect_to game_path(player_2_game.uuid)
   end
 
   private

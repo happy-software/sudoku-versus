@@ -1,0 +1,14 @@
+#new_challenge_container
+  form action=create_challenge_url method="POST"
+    - if session[:user_name].present?
+      p Ready for another game, #{session[:user_name]}?
+    - else
+      label for="userNameInput" Enter your name (fake names are fine)
+      input#userNameInput.form-control.mt-3 type="text" name="user_name_input"
+    label for="difficultyLevel" Select difficulty level
+    select#difficultyLevel.form-control name="difficulty_level"
+      option value="easy" selected=true Easy
+      option value="medium" Medium
+      option value="hard" Hard
+      option value="very_hard" Very Hard
+    button.btn.btn-primary.mt-3 style="display: block;" Submit

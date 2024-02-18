@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_01_26_005409) do
+ActiveRecord::Schema[7.0].define(version: 2024_02_18_195941) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -68,7 +68,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_26_005409) do
   create_table "matches", force: :cascade do |t|
     t.jsonb "solution"
     t.jsonb "starting_board"
-    t.string "match_key"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "player_1_name"
@@ -76,6 +75,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_01_26_005409) do
     t.string "difficulty_level"
     t.datetime "started_at"
     t.datetime "ended_at"
+    t.uuid "match_key"
   end
 
 end
