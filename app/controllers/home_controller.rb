@@ -26,6 +26,8 @@ class HomeController < ApplicationController
     existing_game = match.games.find_by_session_uuid(session[:session_uuid])
     redirect_to game_path(existing_game.uuid) if existing_game.present?
 
+    redirect_to new_path if match.match_started?
+
     @player_1_name    = match.player_1_name
     @match_key        = match.match_key
     @difficulty_level = match.difficulty_level
