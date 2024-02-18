@@ -16,13 +16,7 @@ class HomeController < ApplicationController
     @challenge_url    = join_match_url(match_key: @match.match_key)
 
     puts "#{@user_name} has created a challenge (match: #{@match.match_key})"
-    respond_to do |format|
-      format.turbo_stream do
-        render turbo_stream: [
-          turbo_stream.replace('new_challenge_container', partial: 'home/waiting_for_challenger')
-        ]
-      end
-    end
+    redirect_to game_path(@match.player_1_game.uuid)
   end
 
   def join_match

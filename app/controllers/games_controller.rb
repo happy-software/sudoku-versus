@@ -3,13 +3,16 @@ class GamesController < ApplicationController
     @game  = Game.find_by_uuid!(params[:id])
     @match = @game.match
 
-    if @match.match_ended?
-      stats = @match.game_over_stats
-      # TODO: Fix this view.
-      #   In the normal flow, when a game is over, the stats get swapped in for the #gameContainer div
-      #   but since the stats partial is getting loaded in by itself here, the layout is missing and
-      #   the view looks barren (not centered, missing fonts, bootstrap buttons, etc)
-      render partial: 'game/stats', locals: { final_stats: stats }
+
+    render 'games/stats', locals: { final_stats: @match.game_over_stats } if @match.match_ended?
+
+    unless @match.match_started?
+      if @game.player_1? && @game.session_uuid == session[:session_uuid]
+        @user_name        = @game.player_name
+        @difficulty_level = @match.difficulty_level
+        @challenge_url    = join_match_url(match_key: @match.match_key)
+        render 'home/waiting_for_challenger'
+      end
     end
 
     @board     = @match.starting_board
