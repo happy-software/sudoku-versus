@@ -21,7 +21,7 @@ class HomeController < ApplicationController
     respond_to do |format|
       format.turbo_stream do
         render turbo_stream: [
-          turbo_stream.update('new_challenge_container', partial: 'home/waiting_for_challenger')
+          turbo_stream.replace('new_challenge_container', partial: 'home/waiting_for_challenger')
         ]
       end
     end
@@ -39,7 +39,6 @@ class HomeController < ApplicationController
     @difficulty_level = match.difficulty_level
 
     puts "Player 2 looking to join #{@difficulty_level} match(#{@match_key}) against #{@player_1_name}"
-    render 'new'
   end
 
   def accept_challenge
@@ -54,14 +53,12 @@ class HomeController < ApplicationController
 
     @board = match.starting_board
 
-    game_1_html = render_to_string("home/_game", layout: false, locals: {board: @board, match_key: match.match_key, game_uuid: match.player_1_game.uuid})
-    game_2_html = render_to_string("home/_game", layout: false, locals: {board: @board, match_key: match.match_key, game_uuid: player_2_game.uuid})
-
+    game_1_html = render_to_string("games/show", layout: false, assigns: {game: match.player_1_game, board: @board, match: match, match_key: match.match_key, game_uuid: match.player_1_game.uuid})
     match.set_start_time!
 
     puts "Player 2 (#{@user_name}) accepting challenge for match(#{match.match_key}) against Player 1 (#{match.player_1_game.player_name})"
-    Turbo::StreamsChannel.broadcast_update_to(match.match_key, target: 'waiting_for_challenger_container', html: game_1_html)
-    Turbo::StreamsChannel.broadcast_update_to(match.match_key, target: 'player_2_accept_challenge_container', html: game_2_html)
+    Turbo::StreamsChannel.broadcast_replace_to(match.match_key, target: 'waiting_for_challenger_container', html: game_1_html)
+    redirect_to game_path(player_2_game.uuid)
   end
 
   private
