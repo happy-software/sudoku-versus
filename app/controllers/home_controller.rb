@@ -4,8 +4,6 @@ class HomeController < ApplicationController
   end
 
   def new
-    @player_1_start = true
-    @player_2_start = false
   end
 
   def create_challenge
@@ -29,9 +27,6 @@ class HomeController < ApplicationController
 
   def join_match
     session[:session_uuid] ||= SecureRandom.uuid
-
-    @player_1_start = false
-    @player_2_start = true
 
     match = Match.find_by!(match_key: params[:match_key])
     @player_1_name = match.player_1_name
