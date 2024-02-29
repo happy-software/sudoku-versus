@@ -22,3 +22,8 @@ Rack::Attack.blocklist('block common entry points and vulnerabilities') do |req|
     true
   end
 end
+
+Rack::Attack.blocklisted_response = lambda do |_env|
+  # All blacklisted routes would 527 (no official error type associated with 527 according to wikipedia).
+  [527, {}, ['Beep']]
+end
