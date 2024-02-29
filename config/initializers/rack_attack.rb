@@ -3,7 +3,7 @@
 # Blacklist bots looking for common entry points and vulnerabilities
 Rack::Attack.blocklist('block common entry points and vulnerabilities') do |req|
   # Block requests targeting common entry points
-  if req.path =~ %r{/wp-.*|/admin|/login|/admin/.*|/users.*|/script.*|/manager.*|/webui.*|/sitemap.*|/rest_route.*}
+  if req.path =~ %r{/wp-.*|/admin|/login|/admin/.*|/users.*|/script.*|/manager.*|/webui.*|/sitemap.*|/rest_route.*|/cgi.*}
     # Return true to block the request
     puts "[#{req.ip}] Blocking request searching for common entry points: #{req.path}"
     true
