@@ -17,15 +17,15 @@ Rack::Attack.blocklist("sensitive files scanning") do |req|
     true
   end
 end
-
-Rack::Attack.blocklist("code injection attempts") do |req|
-  # Block requests with known exploit attempts (e.g., SQL injection, XSS)
-  # Modify the conditions according to your specific detection needs
-  if req.path =~ /(SELECT|UNION|INSERT|DELETE|UPDATE|CREATE|DROP|ALTER)/i || req.params.nil? || req.params.any? { |k, v| v =~ /(SELECT|UNION|INSERT|DELETE|UPDATE|CREATE|DROP|ALTER)/i }
-    puts "[#{req.ip}] Blocking request attempting code injection attacks: #{req.path}"
-    true
-  end
-end
+#
+# Rack::Attack.blocklist("code injection attempts") do |req|
+#   # Block requests with known exploit attempts (e.g., SQL injection, XSS)
+#   # Modify the conditions according to your specific detection needs
+#   if req.path =~ /(SELECT|UNION|INSERT|DELETE|UPDATE|CREATE|DROP|ALTER)/i || req.params.nil? || req.params.any? { |k, v| v =~ /(SELECT|UNION|INSERT|DELETE|UPDATE|CREATE|DROP|ALTER)/i }
+#     puts "[#{req.ip}] Blocking request attempting code injection attacks: #{req.path}"
+#     true
+#   end
+# end
 
 Rack::Attack.blocklisted_response = lambda do |_env|
   # All blacklisted routes would 527 (no official error type associated with 527 according to wikipedia).
