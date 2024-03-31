@@ -1,0 +1,12 @@
+.book-page
+  = render partial: "books/partials/intro"
+
+- @sections.each do |section_identifier, section_games|
+  .book-page
+    = render partial: "books/partials/section_divider", locals: { section_identifier: section_identifier }
+  - section_games.each do |game|
+    .book-page
+      = render partial: "home/board", locals: { :@board => game }, assigns: { :@board => game }
+
+.book-page
+  = render partial: "books/partials/outro"

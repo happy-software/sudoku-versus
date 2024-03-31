@@ -12,4 +12,5 @@ Rails.application.routes.draw do
   resources :games, only: [:show] do
     post :check_input, as: "check_input"
   end
+  resources :books, only: [:index]
 end
