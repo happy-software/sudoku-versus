@@ -75,3 +75,6 @@ gem "dockerfile-rails", ">= 1.5", :group => :development
 gem "ahoy_matey"
 
 gem "rack-attack", "~> 6.7"
+
+gem "wkhtmltopdf-binary"
+gem "wicked_pdf"
