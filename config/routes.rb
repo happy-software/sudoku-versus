@@ -7,10 +7,16 @@ Rails.application.routes.draw do
   post '/create_challenge', to: 'home#create_challenge'
   post '/accept_challenge', to: 'home#accept_challenge'
   get '/join_match/:match_key', to: 'home#join_match', as: 'join_match'
+  resources :books, only: [:index]
 
   post '/check_input', to: 'game#check_input'
+
   resources :games, only: [:show] do
     post :check_input, as: "check_input"
   end
-  resources :books, only: [:index]
+
+  # Rematch routes
+  post '/create_rematch/:game_uuid', to: 'game#create_rematch', as: 'create_rematch'
+  post '/accept_rematch/:game_uuid', to: 'game#accept_rematch', as: 'accept_rematch'
+  post '/reject_rematch/:game_uuid', to: 'game#reject_rematch', as: 'reject_rematch'
 end
