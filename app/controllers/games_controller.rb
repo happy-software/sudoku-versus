@@ -54,7 +54,6 @@ class GamesController < ApplicationController
   end
 
   def accept_rematch
-    puts "Accepting Rematch with these params: #{params}"
     game              = Game.find_by_uuid!(params[:game_id])
     original_match    = game.match
     accepting_player  = game.player_name
@@ -106,7 +105,7 @@ class GamesController < ApplicationController
   end
 
   def reject_rematch
-    puts "Rejecting Rematch with these params: #{params}"
+    # TODO: Send a message back to the challenger that the request was declined.
   end
 
   private
