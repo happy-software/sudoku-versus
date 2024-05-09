@@ -30,7 +30,7 @@ class GamesController < ApplicationController
     rematch_request                 = RematchRequest.new
     rematch_request.challenger_game = game
     rematch_request.match           = original_match
-    rematch_request.challengee_game = game.player_number.to_sym == :player_1 ? original_match.player_2_game : original_match.player_1_game
+    rematch_request.challengee_game = game.player_1? ? original_match.player_2_game : original_match.player_1_game
     rematch_request.save!
 
     @challenger_game_uuid = rematch_request.challenger_game.uuid
