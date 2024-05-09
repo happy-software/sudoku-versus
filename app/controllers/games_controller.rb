@@ -57,10 +57,10 @@ class GamesController < ApplicationController
     game              = Game.find_by_uuid!(params[:game_id])
     original_match    = game.match
     accepting_player  = game.player_name
-    requesting_player = game.player_number == "player_1" ? original_match.player_2_game.player_name : original_match.player_1_game.player_name
+    requesting_player = game.player_1? ? original_match.player_2_game.player_name : original_match.player_1_game.player_name
 
     accepting_player_session  = game.session_uuid
-    requesting_player_session = game.player_number == "player_1" ? original_match.player_2_game.session_uuid : original_match.player_1_game.session_uuid
+    requesting_player_session = game.player_1? ? original_match.player_2_game.session_uuid : original_match.player_1_game.session_uuid
 
     board                     = SudokuBuilder.create
     solution                  = board.to_a.flatten
