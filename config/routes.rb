@@ -18,9 +18,4 @@ Rails.application.routes.draw do
     post :accept_rematch, to: 'games#accept_rematch', as: 'accept_rematch'
     post :reject_rematch, to: 'games#reject_rematch', as: 'reject_rematch'
   end
-
-  # Rematch routes
-  # post '/create_rematch/:game_uuid', to: 'game#create_rematch', as: 'create_rematch'
-  # post '/accept_rematch/:game_uuid', to: 'game#accept_rematch', as: 'accept_rematch'
-  # post '/reject_rematch/:game_uuid', to: 'game#reject_rematch', as: 'reject_rematch'
 end
