@@ -19,5 +19,9 @@ p ⏱️ #{final_stats.fetch(:total_time)}
           li.list-group-item Accuracy: #{final_stats.fetch(:player_2_accuracy)}% #{final_stats.fetch(:player_2_grade)}
           = render partial: "game/squares_left", locals: { player_squares_left: final_stats.fetch(:player_2_squares_left) }
 
-#play_again.position-relative
-  a.btn.btn-primary.mt-3.position-absolute.start-50.top-50.translate-middle-x href="#{new_url}" Play Again!
+#play_again
+  a.btn.btn-secondary.m-3 href="#{new_url}" New Game
+  form action=game_create_rematch_url(game_uuid) method="POST" id="send_rematch_request_#{game_uuid}"
+    input.btn.btn-primary.m-3 type="submit" value="Rematch"
+
+= turbo_frame_tag "rematch_request_container_#{game_uuid}"

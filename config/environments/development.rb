@@ -67,4 +67,7 @@ Rails.application.configure do
 
   # Uncomment if you wish to allow Action Cable access from any origin.
   # config.action_cable.disable_request_forgery_protection = true
+
+  # https://guides.rubyonrails.org/debugging_rails_applications.html#log-levels
+  config.log_level = :info # Log levels (ordered): [:debug, :info, :warn, :error, :fatal, :unknown]
 end

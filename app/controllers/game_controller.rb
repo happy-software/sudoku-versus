@@ -19,11 +19,16 @@ class GameController < ApplicationController
     if game.game_over?
       match.set_end_time!
       stats          = match.game_over_stats
-      game_over_html = render_to_string("game/_stats", layout: false, locals: { final_stats: stats })
+      player_1_game_over_html = render_to_string("game/_stats", layout: false, locals: { final_stats: stats, game_uuid: match.player_1_game.uuid, opponent_game_uuid: match.player_2_game.uuid })
+      player_2_game_over_html = render_to_string("game/_stats", layout: false, locals: { final_stats: stats, game_uuid: match.player_2_game.uuid, opponent_game_uuid: match.player_1_game.uuid })
 
-      Turbo::StreamsChannel.broadcast_replace_to(match.match_key, target: 'gameContainer', html: game_over_html)
+      Turbo::StreamsChannel.broadcast_replace_to(match.player_1_session, target: 'gameContainer', html: player_1_game_over_html)
+      Turbo::StreamsChannel.broadcast_replace_to(match.player_2_session, target: 'gameContainer', html: player_2_game_over_html)
+
+      render json: { game_over: true }
     else
-      render json: { is_correct: is_correct, game_over: game.game_over?, remaining_numbers: game.remaining_numbers }
+      render json: { is_correct: is_correct, remaining_numbers: game.remaining_numbers }
     end
   end
+
 end

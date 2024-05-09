@@ -1,0 +1,14 @@
+= turbo_frame_tag "rematch_request_container_#{challengee_game_uuid}" do
+  div
+    .modal.fade data-controller="rematch-modal"
+      .modal-dialog.modal-dialog-centered
+        .modal-content
+          .modal-header
+            h5.modal-title Rematch Request
+          .modal-body
+            .p Ayyy this guy wants a rematch, whaddaya wanna do?
+          .modal-footer
+            form action=game_reject_rematch_path(challengee_game_uuid) method="POST" id="decline_rematch_#{challengee_game_uuid}"
+              input.btn.btn-secondary type="submit" value="✗ Decline"
+            form action=game_accept_rematch_path(challengee_game_uuid) method="POST" id="accept_rematch_#{challengee_game_uuid}"
+              input.btn.btn-primary type="submit" value="✓ Accept"

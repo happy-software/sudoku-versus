@@ -88,9 +88,12 @@ export default class extends Controller {
         bodyPromise.then((body) => {
           const is_correct        = body.is_correct
           const is_game_over      = body.game_over
-          const remaining_numbers = Array.from(body.remaining_numbers)
 
-          if (is_correct) {
+          if (is_game_over) {
+            // Do Nothing
+          }
+          else if (is_correct) {
+            const remaining_numbers = Array.from(body.remaining_numbers)
             selectedCell.classList.remove("incorrectSelection")
             selectedCell.classList.add("correctSelection")
             if (!remaining_numbers.includes(parseInt(selectedNumber))) {
