@@ -21,7 +21,7 @@ p ⏱️ #{final_stats.fetch(:total_time)}
 
 #play_again
   a.btn.btn-secondary.m-3 href="#{new_url}" New Game
-  form action=create_rematch_url(game_uuid: game_uuid) method="POST" id="send_rematch_request_#{game_uuid}"
+  form action=game_create_rematch_url(game_uuid) method="POST" id="send_rematch_request_#{game_uuid}"
     input.btn.btn-primary.m-3 type="submit" value="Rematch"
 
 = turbo_frame_tag "rematch_request_container_#{game_uuid}"

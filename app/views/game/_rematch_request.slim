@@ -8,7 +8,7 @@
           .modal-body
             .p Ayyy this guy wants a rematch, whaddaya wanna do?
           .modal-footer
-            form action=reject_rematch_path(game_uuid: challengee_game_uuid) method="POST" id="decline_rematch_#{challengee_game_uuid}"
-              input.btn.btn-danger type="submit" value="✗ Decline"
-            form action=accept_rematch_path(game_uuid: challengee_game_uuid) method="POST" id="accept_rematch_#{challengee_game_uuid}"
-              input.btn.btn-secondary type="submit" value="✓ Accept"
+            form action=game_reject_rematch_path(challengee_game_uuid) method="POST" id="decline_rematch_#{challengee_game_uuid}"
+              input.btn.btn-secondary type="submit" value="✗ Decline"
+            form action=game_accept_rematch_path(challengee_game_uuid) method="POST" id="accept_rematch_#{challengee_game_uuid}"
+              input.btn.btn-primary type="submit" value="✓ Accept"
