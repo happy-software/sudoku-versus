@@ -72,7 +72,7 @@ class HomeController < ApplicationController
 
     board          = SudokuBuilder.create
     solution       = board.to_a.flatten
-    starting_board = board.poke(difficulty_level).to_a.flatten
+    starting_board = ApplicationHelper.poke(solution, difficulty_level)
     match_key      = SecureRandom.uuid
     match          = Match.create!(starting_board: starting_board, solution: solution, match_key: match_key, player_1_name: player_1_name, difficulty_level: difficulty)
 
