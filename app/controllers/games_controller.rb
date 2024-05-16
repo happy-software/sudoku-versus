@@ -65,7 +65,7 @@ class GamesController < ApplicationController
     board                     = SudokuBuilder.create
     solution                  = board.to_a.flatten
     original_difficulty_level = original_match.starting_board.count(nil)
-    starting_board            = board.poke(original_difficulty_level).to_a.flatten
+    starting_board            = ApplicationHelper.poke(solution, original_difficulty_level).to_a.flatten
     match_key                 = SecureRandom.uuid
 
     match = Match.create!(starting_board:   starting_board,
