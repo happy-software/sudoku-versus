@@ -8,7 +8,6 @@ class HomeController < ApplicationController
 
   def create_challenge
     session[:user_name]    ||= params[:user_name_input].titleize
-    session[:session_uuid] ||= SecureRandom.uuid
 
     @user_name        = session[:user_name]
     @difficulty_level = params[:difficulty_level]
@@ -20,8 +19,6 @@ class HomeController < ApplicationController
   end
 
   def join_match
-    session[:session_uuid] ||= SecureRandom.uuid
-
     match         = Match.find_by!(match_key: params[:match_key])
     existing_game = match.games.find_by_session_uuid(session[:session_uuid])
     redirect_to game_path(existing_game.uuid) if existing_game.present?

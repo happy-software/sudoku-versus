@@ -1,9 +1,12 @@
 class ApplicationController < ActionController::Base
-  # TODO: Add a global before_action to set session
+  before_action :set_session_uuid
   before_action :track_event
 
+  def set_session_uuid
+    session[:session_uuid] ||= SecureRandom.uuid
+  end
+
   def track_event
-    # TODO: Track session within event
-    ahoy.track action_name
+    ahoy.track action_name, session_uuid: session[:session_uuid], **request.path_parameters
   end
 end
