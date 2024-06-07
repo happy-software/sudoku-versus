@@ -1,5 +1,12 @@
-div.row
-  div.col-3
-  div.col-6.text-center
-    h1 Sudoku Versus
-  div.col-3
+
+nav.navbar.navbar-expand-lg.navbar-dark.bg-dark.mb-3
+  .container-fluid
+    a.navbar-brand href=root_path SudokuVersus
+    button.navbar-toggler type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-label="Toggle navigation"
+      span.navbar-toggler-icon
+    #navbarSupportedContent.collapse.navbar-collapse
+      ul.navbar-nav.ms-auto.mb-2.mb-lg-0
+        li.nav-item
+          a.nav-link href=new_path New Game
+        / li.nav-item.nav-fill
+        /   a.nav-link.btn.btn-outline-primary href="#" The Book
