@@ -19,5 +19,6 @@ html lang="en"
   body
     = render partial: 'layouts/shared/header'
     = turbo_stream_from session[:session_uuid]
-    = yield
+    .container
+      = yield
 
