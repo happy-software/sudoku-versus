@@ -1,6 +1,6 @@
 class HomeController < ApplicationController
   def index
-    @recent_games = Match.recently_ended.map { |match| match.game_over_stats.merge(difficulty_level: match.difficulty_level.titleize)}
+    @recent_games = Match.recently_ended.last(15).map { |match| match.game_over_stats.merge(difficulty_level: match.difficulty_level.titleize)}
   end
 
   def new
