@@ -1,3 +1,9 @@
-.display-4 Challenge your mind and your friends!
-p Play Sudoku like never before against anyone around the world.
-a.btn.btn-primary href=new_path Play Now
+.display-4.text-uppercase.text-center Challenge your mind and your friends
+p.mt-3.text-center Play Sudoku against anyone around the world.
+a.btn.btn-primary.d-grid.col-sm-6.col-md-3.mx-auto href=new_path Play Now
+
+.d-flex.justify-content-center.mt-4
+  hr.w-25
+
+.mt-4
+  = render partial: "history_table", locals: { recent_games: @recent_games }

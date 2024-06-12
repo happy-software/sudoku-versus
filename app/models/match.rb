@@ -1,6 +1,8 @@
 class Match < ApplicationRecord
   has_many :games
 
+  scope :recently_ended, -> { where.not(ended_at: nil).order(ended_at: :desc) }
+
   def match_started?
     self.started_at?
   end
