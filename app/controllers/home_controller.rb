@@ -1,6 +1,6 @@
 class HomeController < ApplicationController
   def index
-    @board = SudokuBuilder.create.hard.to_a.flatten
+    @recent_games = Match.recently_ended.map { |match| match.game_over_stats.merge(difficulty_level: match.difficulty_level.titleize)}
   end
 
   def new

@@ -1,0 +1,27 @@
+.display-6.text-uppercase.text-center Recent Games
+
+table.table
+  thead
+    tr
+      th scope="col" Player 1
+      th scope="col" Player 2
+      th scope="col" Difficulty
+      th scope="col" Time
+  tbody
+    - recent_games.each do |game_stats|
+      - player_1_winner = game_stats.fetch(:winner).to_sym == :player_1
+      - player_2_winner = game_stats.fetch(:winner).to_sym == :player_2
+
+      tr
+        - if player_1_winner
+          td.fw-bold #{game_stats.fetch(:player_1_name)} 🎉
+        - else
+          td #{game_stats.fetch(:player_1_name)}
+
+        - if player_2_winner
+          td.fw-bold #{game_stats.fetch(:player_2_name)} 🎉
+        - else
+          td #{game_stats.fetch(:player_2_name)}
+
+        td #{game_stats.fetch(:difficulty_level)}
+        td #{game_stats.fetch(:total_time)}
