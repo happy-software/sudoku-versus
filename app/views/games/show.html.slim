@@ -5,9 +5,8 @@
       = @match_key
     game-id hidden=true readonly=true id="game-id"
       = @game_uuid
-    div.row
-      div.col
-        = render partial: 'home/board', locals: {board: @board}
+
+    = render partial: 'home/board', locals: {board: @board}
 
     div.row
       div.col-md-3
