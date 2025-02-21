@@ -66,7 +66,7 @@ Rails.application.configure do
     "190.93.240.0/20",
     "197.234.240.0/22",
     "198.41.128.0/17",
-  ]
+  ].map { |ip| IPAddr.new(ip) }.freeze
 
   # Include generic and useful information about system operation, but avoid logging too much
   # information to avoid inadvertent exposure of personally identifiable information (PII).
