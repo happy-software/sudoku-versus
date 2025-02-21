@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
 
   def track_event
     puts "ALL HEADERS"
-    puts request.headers.keys
+    puts request.headers.to_h.keys
     ahoy.track action_name, session_uuid: session[:session_uuid], **request.path_parameters, **request.headers.to_h.reject { |k,v| ['puma', 'action_dispatch', 'honeybadger', 'rack'].any? { |word| k.to_s.downcase.include?(word) } }
   end
 end
