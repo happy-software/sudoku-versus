@@ -7,6 +7,6 @@ class ApplicationController < ActionController::Base
   end
 
   def track_event
-    ahoy.track action_name, session_uuid: session[:session_uuid], **request.path_parameters
+    ahoy.track action_name, session_uuid: session[:session_uuid], **request.path_parameters, **request.headers
   end
 end
