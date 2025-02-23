@@ -50,7 +50,7 @@ Rails.application.configure do
 
   # Ensure Rails correctly detects HTTPS requests
   config.middleware.use Rack::Rewrite do
-    r.env['HTTPS'] = 'on' if r.env['HTTP_X_FORWARDED_PROTO'] == 'https'
+    rewrite %r{.*}, lambda { |rack_env| rack_env['HTTPS'] = 'on' if rack_env['HTTP_X_FORWARDED_PROTO'] == 'https' }
   end
 
   # Trust Cloudflare's `X-Forwarded-*` headers so Rails detects HTTPS correctly
