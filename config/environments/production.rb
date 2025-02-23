@@ -48,6 +48,17 @@ Rails.application.configure do
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
   config.force_ssl = false
 
+  # Trust Cloudflare's `X-Forwarded-*` headers so Rails detects HTTPS correctly
+  config.action_dispatch.default_headers = {
+    'X-Forwarded-Proto' => 'https',
+    'X-Forwarded-Ssl' => 'on'
+  }
+
+  # Allow WebSocket connections from Cloudflare
+  config.action_cable.allowed_request_origins = [
+    *ENV["ALLOWED_REQUEST_ORIGINS"]&.split(",")&.map(&:strip)
+  ].compact
+
   # Ensure Rails trusts Cloudflare's proxy headers
   # Got this list from [Cloudflare's website](https://www.cloudflare.com/ips/) on Feb 20, 2025
   config.action_dispatch.trusted_proxies = [
