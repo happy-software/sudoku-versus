@@ -49,7 +49,7 @@ Rails.application.configure do
   config.force_ssl = false
 
   # Ensure Rails correctly detects HTTPS requests
-  config.middleware.insert_before ActionDispatch::SSL, Rack::Rewrite do
+  config.middleware.use Rack::Rewrite do
     r.env['HTTPS'] = 'on' if r.env['HTTP_X_FORWARDED_PROTO'] == 'https'
   end
 
