@@ -48,11 +48,6 @@ Rails.application.configure do
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
   config.force_ssl = true
 
-  # # Ensure Rails correctly detects HTTPS requests
-  # config.middleware.use Rack::Rewrite do
-  #   rewrite %r{.*}, lambda { |rack_env| rack_env['HTTPS'] = 'on' if rack_env['HTTP_X_FORWARDED_PROTO'] == 'https' }
-  # end
-
   # Trust Cloudflare's `X-Forwarded-*` headers so Rails detects HTTPS correctly
   config.action_dispatch.default_headers = {
     'X-Forwarded-Proto' => 'https',

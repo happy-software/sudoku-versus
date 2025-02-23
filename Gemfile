@@ -78,5 +78,3 @@ gem "rack-attack", "~> 6.7"
 
 gem "wkhtmltopdf-binary"
 gem "wicked_pdf"
-
-gem "rack-rewrite"
