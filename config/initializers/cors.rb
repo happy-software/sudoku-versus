@@ -1,4 +1,4 @@
-if Rails.env.production?
+if Rails.env.production? && ENV["SECRET_KEY_BASE"] != "DUMMY" # We can skip this during asset pre-compilation build step
   Rails.application.config.middleware.insert_before 0, Rack::Cors do
     puts "ENV['INPUT_CHECKER_URL'] is: #{ENV["INPUT_CHECKER_URL"].inspect}"
     host            = URI(ENV["INPUT_CHECKER_URL"]).host
