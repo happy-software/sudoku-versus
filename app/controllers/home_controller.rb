@@ -11,7 +11,7 @@ class HomeController < ApplicationController
 
     @user_name        = session[:user_name]
     @difficulty_level = params[:difficulty_level]
-    @match            = create_new_match(difficulty: @difficulty_level.to_s, player_1_name: @user_name, player_1_session_uuid: session[:session_uuid])
+    @match            = create_new_match(difficulty: @difficulty_level.to_sym, player_1_name: @user_name, player_1_session_uuid: session[:session_uuid])
     @challenge_url    = join_match_url(match_key: @match.match_key)
 
     puts "#{@user_name} has created a challenge (match: #{@match.match_key})"
@@ -55,21 +55,9 @@ class HomeController < ApplicationController
   private
 
   def create_new_match(difficulty:, player_1_name:, player_1_session_uuid:)
-    difficulty_level = if difficulty.to_s.downcase == 'easy'
-      (25..32).to_a.sample
-    elsif difficulty.to_s.downcase == 'medium'
-      (31..39).to_a.sample
-    elsif difficulty.to_s.downcase == 'hard'
-      (38..46).to_a.sample
-    elsif difficulty.to_s.downcase == 'very_hard'
-      (55..65).to_a.sample
-    else
-      ArgumentError.new("Given difficulty level: (#{difficulty}) is not recognized! Possible Options: (Easy, Medium, Hard, Very Hard)")
-    end
-
     board          = SudokuBuilder.create
     solution       = board.to_a.flatten
-    starting_board = ApplicationHelper.poke(solution, difficulty_level)
+    starting_board = ApplicationHelper.poke(solution, difficulty)
     match_key      = SecureRandom.uuid
     match          = Match.create!(starting_board: starting_board, solution: solution, match_key: match_key, player_1_name: player_1_name, difficulty_level: difficulty)
 
