@@ -38,3 +38,6 @@
 # RubyMine files
 .idea*
 /config/credentials/production.key
+
+# env files
+.env*
