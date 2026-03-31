@@ -62,11 +62,10 @@ class GamesController < ApplicationController
     accepting_player_session  = game.session_uuid
     requesting_player_session = game.player_1? ? original_match.player_2_game.session_uuid : original_match.player_1_game.session_uuid
 
-    board                     = SudokuBuilder.create
-    solution                  = board.to_a.flatten
-    original_difficulty_level = original_match.starting_board.count(nil)
-    starting_board            = ApplicationHelper.poke(solution, original_difficulty_level).to_a.flatten
-    match_key                 = SecureRandom.uuid
+    board          = SudokuBuilder.create
+    solution       = board.to_a.flatten
+    starting_board = ApplicationHelper.poke(solution, original_match.difficulty_level.to_sym).to_a.flatten
+    match_key      = SecureRandom.uuid
 
     match = Match.create!(starting_board:   starting_board,
                   solution:         solution,
