@@ -1,6 +1,9 @@
 = turbo_stream_from @match_key
 #player_2_accept_challenge_container
-  h3 🥊 #{@player_1_name.titleize} has challenged to a #{@difficulty_level.to_s.split("_").join(' ')} head-to-head match! 🥊
+  h3
+    span aria-hidden="true" 🥊
+    | #{@player_1_name.titleize} has challenged to a #{@difficulty_level.to_s.split("_").join(' ')} head-to-head match!
+    span aria-hidden="true"  🥊
   form action=accept_challenge_url method="POST"
     - if session[:user_name].present?
       p Ready for another game, #{session[:user_name]}?

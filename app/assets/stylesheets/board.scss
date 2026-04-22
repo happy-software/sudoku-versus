@@ -1,16 +1,26 @@
+// Color palette
+$board-border-color: #343a40;
+$clue-number-color: #343a40;
+$selected-bg: #7babf3;
+$selected-shadow-primary: #0d6efd;
+$selected-shadow-dark: #082e67;
+$highlighted-bg: #0d6efd;
+$prefilled-bg: #969da2;
+$incorrect-bg: indianred;
+
 #sudoku-board {
-  border: thick solid;
-  font-weight: 999;
+  border: thick solid $board-border-color;
+  font-weight: 900;
 }
 
 #sudoku-board span {
-  color: blue;
+  color: $clue-number-color;
 }
 
 .selected {
-  box-shadow: 1px 1px 2px black, 0 0 25px #0d6efd, 0 0 5px #082e67;
+  box-shadow: 1px 1px 2px black, 0 0 25px $selected-shadow-primary, 0 0 5px $selected-shadow-dark;
   font-weight: bold;
-  background-color: #7babf3 !important;
+  background-color: $selected-bg !important;
 }
 
 .selected span {
@@ -18,7 +28,7 @@
 }
 
 .highlighted {
-  background-color: #0d6efd !important;
+  background-color: $highlighted-bg !important;
 }
 
 .highlighted span {
@@ -26,7 +36,7 @@
 }
 
 .prefilledCell {
-  background-color: #969da2;
+  background-color: $prefilled-bg;
 }
 
 .prefilledCell span {
@@ -34,18 +44,11 @@
 }
 
 .incorrectSelection {
-  background-color: indianred !important;
-  span {
-    color: white !important;
-  }
+  background-color: $incorrect-bg !important;
 }
 
-#selectionRow {
-
-}
-
-#editRow {
-
+.incorrectSelection span {
+  color: white !important;
 }
 
 @media only screen and (max-width: 431px) {
