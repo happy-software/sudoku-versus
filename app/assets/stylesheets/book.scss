@@ -1,4 +1,8 @@
 @media print {
+  nav, header {
+    display: none !important;
+  }
+
   #sudoku-board {
     height: 100%;
   }
