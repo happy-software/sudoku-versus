@@ -27,8 +27,6 @@ export default class extends Controller {
       document.getElementById(`select_${e.key}`).click()
     };
     this.disableCompletedNumberSelection();
-
-    console.log(`Connected to BoardController with input checker as ${window.input_checker_url}`)
   }
 
   selectCell(event) {
@@ -185,7 +183,7 @@ export default class extends Controller {
       }
     }
 
-    let url        = window.input_checker_url // Set in layouts/application.slim
+    let url        = window.location.origin + "/check_input"
     const request  = new FetchRequest('post', url, requestData)
     const response = await request.perform()
 
