@@ -1,4 +1,5 @@
 class GameController < ApplicationController
+  # TODO: This controller has been deprecated in favor of GamesController, feel free to clean it up at some point
   def check_input
     # TODO - Deprecate this controller and move this action to GamesController
     match_key      = params[:match_id]
