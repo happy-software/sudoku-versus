@@ -9,15 +9,7 @@
         | #{num}
     button.col.btn.btn-outline-danger.me-2 type="button" data-action="click->board#clearButtonClick" id="clear_square"
       | X
-/   .col-md-2.mt-4.mb-4
-/     button.btn.btn-secondary type="button" data-action="click->board#startEditing"
-/       i.bi.bi-pencil
-/ #editRow.row hidden=true
-/   .col-10
-/     div.mt-4.mb-4.row
-/       - (1..9).each do |num|
-/         div.col.btn.btn-secondary.me-2 data-action="click->board#writePotential"
-/           | #{num}
-/   .col-2.mt-4.mb-4
-/     button.btn.btn-primary type="button" data-action="click->board#stopEditing"
-/       i.bi.bi-pencil
+  div.ms-1.mt-3.row
+    button.col.btn.btn-outline-secondary.me-2 type="button" id="toggle_edit_mode" data-board-target="editToggle" data-action="click->board#toggleEditMode"
+      i.bi.bi-pencil
+      span.editModeLabel.ms-2 Notes: Off

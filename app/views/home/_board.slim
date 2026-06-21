@@ -10,8 +10,12 @@ table#sudoku-board.table-bordered.text-center.mx-auto
           data-action="click->board#selectCell"
           data-board-prefilled-value="#{number_for_cell}"
           style="#{[2,5,8].include?(cell) ? 'border-right: thick black solid;' : ''}"
-          class="p-sm-3 p-md-4 #{number_for_cell.nil? ? '' : 'prefilledCell' }"
+          class="cell-td p-sm-3 p-md-4 #{number_for_cell.nil? ? '' : 'prefilledCell hasValue' }"
         }
-          span
+          span.cellValue
             | #{number_for_cell}
+          - if number_for_cell.nil?
+            div.candidates
+              - (1..9).to_a.each do |candidate|
+                span.candidate data-candidate="#{candidate}"
         - cell_counter+= 1

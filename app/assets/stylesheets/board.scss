@@ -7,14 +7,46 @@ $selected-shadow-dark: #082e67;
 $highlighted-bg: #0d6efd;
 $prefilled-bg: #969da2;
 $incorrect-bg: indianred;
+$candidate-color: #495057;
 
 #sudoku-board {
   border: thick solid $board-border-color;
   font-weight: 900;
 }
 
-#sudoku-board span {
+#sudoku-board td {
+  position: relative;
+}
+
+#sudoku-board span.cellValue {
   color: $clue-number-color;
+}
+
+// Pencil-marked candidates render as a small 3x3 grid laid over the cell so
+// each digit always sits in its own fixed spot (1 top-left ... 9 bottom-right).
+.candidates {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  pointer-events: none;
+  padding: 1px;
+}
+
+.candidate {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.6rem;
+  font-weight: 700;
+  line-height: 1;
+  color: $candidate-color !important;
+}
+
+// A committed value hides the pencil marks underneath it.
+.cell-td.hasValue .candidates {
+  display: none;
 }
 
 .selected {
