@@ -80,3 +80,4 @@ gem "wkhtmltopdf-binary"
 gem "wicked_pdf"
 
 gem "rack-cors"
+gem "honeybadger", "~> 6.9"
