@@ -1,6 +1,16 @@
 class Game < ApplicationRecord
   belongs_to :match
 
+  # The most recent Ahoy visit associated with this game's session, used by the
+  # admin dashboard to surface where a player connected from. Returns nil if the
+  # session was never tracked (e.g. very old games).
+  def visit
+    return nil if session_uuid.blank?
+
+    visit_id = Ahoy::Event.for_session(session_uuid).order(time: :desc).limit(1).pick(:visit_id)
+    Ahoy::Visit.find_by(id: visit_id)
+  end
+
   def player_1?
     self.player_number.to_sym == :player_1
   end

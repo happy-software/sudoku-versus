@@ -81,3 +81,6 @@ gem "wicked_pdf"
 
 gem "rack-cors"
 gem "honeybadger", "~> 6.9"
+
+# Geocoding for the admin dashboard (resolves player locations from Ahoy visit IPs)
+gem "geocoder"

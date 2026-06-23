@@ -1,0 +1,76 @@
+.d-flex.justify-content-between.align-items-center.mb-4
+  div
+    h1.h3.mb-1 Match detail
+    .text-muted.small.font-monospace = @match.match_key
+  = match_status_badge(@match)
+
+.card.mb-4
+  .card-header Match info
+  .card-body
+    .row
+      .col-md-3.mb-2
+        .text-muted.small Difficulty
+        .fw-bold = @match.difficulty_level&.titleize
+      .col-md-3.mb-2
+        .text-muted.small Created
+        .fw-bold = dash_time(@match.created_at)
+      .col-md-3.mb-2
+        .text-muted.small Started
+        .fw-bold = dash_time(@match.started_at)
+      .col-md-3.mb-2
+        .text-muted.small Ended
+        .fw-bold = dash_time(@match.ended_at)
+      .col-md-3.mb-2
+        .text-muted.small Duration
+        .fw-bold = humanize_duration(@duration)
+
+h2.h4.mb-3 Players
+
+.row.g-3
+  - if @players.empty?
+    .col-12
+      .text-muted No games recorded for this match.
+  - @players.each do |player|
+    - game  = player[:game]
+    - stats = player[:stats]
+    - visit = player[:visit]
+    .col-md-6
+      .card.h-100
+        .card-header.d-flex.justify-content-between.align-items-center
+          span = game.player_name.presence || "(no name)"
+          span.badge.bg-info.text-dark = game.player_number&.to_s&.titleize
+
+        ul.list-group.list-group-flush
+          li.list-group-item.d-flex.justify-content-between
+            span Board completed?
+            strong = stats.fetch(:completed_board) ? "Yes 🎉" : "No"
+          li.list-group-item.d-flex.justify-content-between
+            span Squares left
+            strong = stats.fetch(:squares_left)
+          li.list-group-item.d-flex.justify-content-between
+            span Moves played
+            strong = stats.fetch(:played_move_count)
+          li.list-group-item.d-flex.justify-content-between
+            span Accuracy
+            strong #{stats.fetch(:accuracy).round(1)}% (#{stats.fetch(:accuracy_grade)})
+
+        .card-header.bg-light Location & device
+        - if visit.nil?
+          .card-body.text-muted.small No visit tracked for this player's session.
+        - else
+          ul.list-group.list-group-flush
+            li.list-group-item.d-flex.justify-content-between
+              span Location
+              strong = visit.location_label || "Unknown"
+            li.list-group-item.d-flex.justify-content-between
+              span IP
+              span.font-monospace.small = visit.ip.presence || "—"
+            li.list-group-item.d-flex.justify-content-between
+              span Device
+              span = [visit.browser, visit.os, visit.device_type].map(&:presence).compact.join(" · ").presence || "—"
+            li.list-group-item.d-flex.justify-content-between
+              span First seen
+              span = dash_time(visit.started_at)
+
+.mt-4
+  a.btn.btn-outline-secondary href=dash_matches_path ← Back to matches
