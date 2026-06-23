@@ -18,4 +18,12 @@ Rails.application.routes.draw do
     post :accept_rematch, to: 'games#accept_rematch', as: 'accept_rematch'
     post :reject_rematch, to: 'games#reject_rematch', as: 'reject_rematch'
   end
+
+  # Hidden admin dashboard (HTTP Basic Auth via ENV). Mounted at /dash to avoid
+  # the /admin path that rack-attack blocks. Add new sections by adding
+  # controllers/views under dash/.
+  namespace :dash do
+    root to: "dashboard#index"
+    resources :matches, only: [:index, :show]
+  end
 end

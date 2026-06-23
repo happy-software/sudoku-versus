@@ -1,0 +1,46 @@
+.d-flex.justify-content-between.align-items-center.mb-4
+  h1.h3.mb-0 Matches
+  span.text-muted #{@total} total
+
+.card
+  .table-responsive
+    table.table.table-hover.mb-0
+      thead
+        tr
+          th Created
+          th Player 1
+          th Player 2
+          th Difficulty
+          th Started
+          th Ended
+          th Status
+      tbody
+        - if @matches.empty?
+          tr
+            td colspan="7" class="text-muted text-center" No matches on this page.
+        - @matches.each do |match|
+          tr role="button" onclick="window.location='#{dash_match_path(match)}'"
+            td = dash_time(match.created_at)
+            td = match.player_1_name || "—"
+            td = match.player_2_name || "—"
+            td = match.difficulty_level&.titleize
+            td = dash_time(match.started_at)
+            td = dash_time(match.ended_at)
+            td = match_status_badge(match)
+
+nav.mt-3 aria-label="Matches pagination"
+  ul.pagination
+    - if @page > 1
+      li.page-item
+        a.page-link href=dash_matches_path(page: @page - 1) ← Previous
+    - else
+      li.page-item.disabled
+        span.page-link ← Previous
+    li.page-item.disabled
+      span.page-link Page #{@page}
+    - if @has_next
+      li.page-item
+        a.page-link href=dash_matches_path(page: @page + 1) Next →
+    - else
+      li.page-item.disabled
+        span.page-link Next →
