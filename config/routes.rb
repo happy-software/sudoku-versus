@@ -11,6 +11,11 @@ Rails.application.routes.draw do
 
   post '/check_input', to: 'game#check_input'
 
+  # Records client-side interactions (e.g. copy-button clicks) as Ahoy events.
+  # Path is deliberately terse ("et" = event tracking) so adblockers don't
+  # block it on words like "track" or "ahoy" — this is first-party analytics.
+  post '/et', to: 'events#create'
+
   resources :games, only: [:show] do
     post :check_input, as: "check_input"
 
