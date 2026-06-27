@@ -1,4 +1,4 @@
-#waiting_for_challenger_container
+#waiting_for_challenger_container data-controller="waiting" data-waiting-match-key-value="#{@match.match_key}"
   = turbo_stream_from @match.match_key
   .card-group
     .card
@@ -14,7 +14,7 @@
           .spinner-grow.text-primary role="status"
           .spinner-grow.text-primary.ms-4 role="status"
           .spinner-grow.text-primary.ms-4 role="status"
-        div.mt-3 data-controller="clipboard"
+        div.mt-3 data-controller="clipboard" data-clipboard-match-key-value="#{@match.match_key}"
           label for="challenge_url" Challenge URL:
           input.form-control id="challenge_url" type="text" value="#{@challenge_url}" readonly=true data-clipboard-target="source"
           button.btn.btn-outline-primary.mt-3 data-action="clipboard#copy" data-bs-toggle="copy-tooltip" data-bs-placement="right" title="Copied!" Copy to Clipboard

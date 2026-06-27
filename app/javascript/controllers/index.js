@@ -8,8 +8,10 @@ import BoardController from "./board_controller"
 import ClipboardController from "./clipboard_controller"
 import RematchModalController from "./rematch_modal_controller"
 import RedirectController from "./redirect_controller";
+import WaitingController from "./waiting_controller"
 
 application.register("board", BoardController)
 application.register("clipboard", ClipboardController)
 application.register("rematch-modal", RematchModalController)
 application.register("redirect", RedirectController)
+application.register("waiting", WaitingController)
