@@ -24,16 +24,22 @@
         .text-muted.small Duration
         .fw-bold = humanize_duration(@duration)
 
-h2.h4.mb-3 Players
+h2.h4.mb-1 Players
+p.text-muted.small.mb-3
+  | Event history shows each player's full browser-session timeline. Events
+  |  positively linked to this match are badged
+  span.badge.bg-primary.mx-1 this match
+  | ; the rest (dimmed) couldn't be attributed to a specific match.
 
 .row.g-3
   - if @players.empty?
     .col-12
       .text-muted No games recorded for this match.
   - @players.each do |player|
-    - game  = player[:game]
-    - stats = player[:stats]
-    - visit = player[:visit]
+    - game   = player[:game]
+    - stats  = player[:stats]
+    - visit  = player[:visit]
+    - events = player[:events]
     .col-md-6
       .card.h-100
         .card-header.d-flex.justify-content-between.align-items-center
@@ -71,6 +77,25 @@ h2.h4.mb-3 Players
             li.list-group-item.d-flex.justify-content-between
               span First seen
               span = dash_time(visit.started_at)
+
+        .card-header.bg-light.d-flex.justify-content-between.align-items-center
+          span Event history
+          span.badge.bg-secondary = events.size
+        - if events.empty?
+          .card-body.text-muted.small No events tracked for this player's session.
+        - else
+          .list-group.list-group-flush style="max-height: 22rem; overflow-y: auto;"
+            - events.each do |event|
+              - highlight = event_badge_class(event.name)
+              li.list-group-item.py-2 class=(event_for_match?(event, @match, game) ? "" : "opacity-75")
+                .d-flex.justify-content-between.align-items-start
+                  div
+                    span.fw-semibold = event_label(event.name)
+                    - if highlight
+                      span.badge.ms-2 class=highlight = event.name.tr("_", " ")
+                    - if event_for_match?(event, @match, game)
+                      span.badge.bg-primary.ms-2 title="Positively linked to this match" this match
+                  .text-muted.small.text-nowrap.ms-2 = event_time(event.time)
 
 .mt-4
   a.btn.btn-outline-secondary href=dash_matches_path ← Back to matches
