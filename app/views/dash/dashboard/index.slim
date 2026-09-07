@@ -25,17 +25,22 @@ h1.h3.mb-4 Overview
 .row.g-3.mb-4
   .col-md-4
     .card.h-100
-      .card-header Matches over time
+      .card-header.d-flex.justify-content-between.align-items-center
+        span Matches over time
+        span.text-muted Completed / Total / %
       ul.list-group.list-group-flush
         li.list-group-item.d-flex.justify-content-between
           span Last 24 hours
-          strong = @matches_24h
+          strong = "#{@matches_24h_completed} / #{@matches_24h_count} / #{@matches_24h_count > 0 ? "#{(@matches_24h_completed.to_f / @matches_24h_count * 100).round(2)}%" : "-"}"
         li.list-group-item.d-flex.justify-content-between
           span Last 7 days
-          strong = @matches_7d
+          strong = "#{@matches_7d_completed} / #{@matches_7d_count} / #{@matches_7d_count > 0 ? "#{(@matches_7d_completed.to_f / @matches_7d_count * 100).round(2)}%" : "-"}"
         li.list-group-item.d-flex.justify-content-between
           span Last 30 days
-          strong = @matches_30d
+          strong = "#{@matches_30d_completed} / #{@matches_30d_count} / #{@matches_30d_count > 0 ? "#{(@matches_30d_completed.to_f / @matches_30d_count * 100).round(2)}%" : "-"}"
+        li.list-group-item.d-flex.justify-content-between
+          span Last 6 months
+          strong = "#{@matches_6m_completed} / #{@matches_6m_count} / #{@matches_6m_count > 0 ? "#{(@matches_6m_completed.to_f / @matches_6m_count * 100).round(2)}%" : "-"}"
 
   .col-md-4
     .card.h-100
