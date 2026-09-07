@@ -4,7 +4,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby "4.0.6"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
-gem "rails", "~> 7.0.4", ">= 7.0.4.2"
+gem "rails", "~> 8-1-stable"
 
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem "sprockets-rails"
@@ -13,7 +13,7 @@ gem "sprockets-rails"
 gem "pg", "~> 1.1"
 
 # Use the Puma web server [https://github.com/puma/puma]
-gem "puma", "~> 5.0"
+gem "puma", "~> 6.0"
 
 # Bundle and transpile JavaScript [https://github.com/rails/jsbundling-rails]
 gem "jsbundling-rails"
@@ -85,4 +85,7 @@ gem "honeybadger", "~> 6.9"
 gem "geocoder"
 
 # Ruby 4+ no longer includes irb so we have to explicitly include it for the rails console to work
-gem "irb"
+
+# TODO: Remove this pin after updating to a Rails version that includes the fix.
+# json 3.0.0 is not compatible with Rails 8.1.3.1 (https://github.com/rails/rails/pull/58601).
+gem 'json', '< 3.0'
