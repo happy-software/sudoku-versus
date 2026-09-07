@@ -254,6 +254,7 @@ DEPENDENCIES
   dockerfile-rails (>= 1.5)
   geocoder
   honeybadger (~> 6.9)
+  irb
   jbuilder
   jsbundling-rails
   pg (~> 1.1)

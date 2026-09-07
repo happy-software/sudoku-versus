@@ -83,3 +83,6 @@ gem "honeybadger", "~> 6.9"
 
 # Geocoding for the admin dashboard (resolves player locations from Ahoy visit IPs)
 gem "geocoder"
+
+# Ruby 4+ no longer includes irb so we have to explicitly include it for the rails console to work
+gem "irb"
